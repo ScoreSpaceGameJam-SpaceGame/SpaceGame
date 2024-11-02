@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 const SPEED : float = 50.0
-const FIRE_POWER_MULTIPLYER : float = 10
+const FIRE_POWER_MULTIPLYER : float = 1.25
 
 var player_state : Enums.player_actions = Enums.player_actions.AIMING
 var firing_vector : Vector2
@@ -44,20 +44,22 @@ func handle_aiming_state():
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Rotate the aim indicator to match the firing angle
-	aim_indicator_mount_point.rotation = global_position.angle_to_point(get_global_mouse_position()) + .5*PI
+	aim_indicator_mount_point.global_rotation = firing_vector.angle() + .5 * PI
 	$Telenade.translate(global_position - $Telenade.global_position)
 	if Input.is_action_just_pressed("FiringAction"):
 		player_state = Enums.player_actions.POWERING
 		original_mouse_position_when_firing = get_global_mouse_position()
 
 func handle_powering_state(delta: float):
+	var x_power : float = get_global_mouse_position().distance_to(original_mouse_position_when_firing)
+	$Telenade.translate(global_position - $Telenade.global_position)
+	firing_power = clamp(log(x_power) * x_power / 2, 0, 100) # TODO use this
+	
 	if Input.is_action_just_released("FiringAction"):
 		player_state = Enums.player_actions.FIRING
 		$Telenade.visible = true
-		$Telenade.apply_impulse(firing_vector.normalized() * clamp(firing_power * FIRE_POWER_MULTIPLYER, 50, 200))
-	var x_power : float = get_global_mouse_position().distance_to(original_mouse_position_when_firing)
-	$Telenade.translate(global_position - $Telenade.global_position)
-	firing_power = clamp(log(x_power) * x_power / 2, 0, 100)
+		$Telenade.global_rotation = firing_vector.angle()
+		$Telenade.apply_central_impulse(firing_vector.normalized() * 100 * FIRE_POWER_MULTIPLYER)
 
 func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):
