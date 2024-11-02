@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://domnmo2ft2frd"]
+
+[ext_resource type="Script" path="res://characters/player/player.gd" id="1_k5q7q"]
+[ext_resource type="PackedScene" uid="uid://32kddvgjo03b" path="res://characters/player/aim_indicator.tscn" id="2_nkr18"]
+[ext_resource type="PackedScene" uid="uid://xakoy6oyk2hs" path="res://characters/player/telenade.tscn" id="3_741t6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mlsml"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vym13"]
+radius = 0.53125
+height = 2.09375
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nnexd"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_k5q7q")
+
+[node name="PlayerMesh" type="MeshInstance2D" parent="."]
+mesh = SubResource("CapsuleMesh_mlsml")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.05)
+shape = SubResource("CapsuleShape2D_vym13")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(15, 15)
+
+[node name="AimIndicatorMountPoint" type="Node2D" parent="."]
+
+[node name="AimIndicator" parent="AimIndicatorMountPoint" instance=ExtResource("2_nkr18")]
+position = Vector2(0, -2)
+
+[node name="Telenade" parent="." instance=ExtResource("3_741t6")]
+physics_material_override = SubResource("PhysicsMaterial_nnexd")
+gravity_scale = 0.08
