@@ -1,6 +1,6 @@
 extends Node2D
 
-const SCROLL_SPEED: float = 0
+const SCROLL_SPEED: float = 1
 const TILE_MAP_LAYER_WIDTH = 90
 const TILE_MAP_LAYER_HEIGHT = 50
 const MIN_NUMBER_OF_PLATFORMS_PER_LAYER = 20
@@ -66,7 +66,7 @@ func generate_new_tile_map_layer() -> void:
 
 func _on_update_score() -> void:
 	Global.current_score += 1
-	$CanvasLayer/Score.text = str(Global.current_score)
+	$CanvasLayer/Control/Score.text = str(Global.current_score)
 	$ScoreTimer.start()
 
 

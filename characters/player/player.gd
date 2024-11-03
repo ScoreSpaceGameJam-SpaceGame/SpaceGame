@@ -10,20 +10,23 @@ var original_mouse_position_when_firing : Vector2
 var firing_power : float
 var is_shooting: bool = false
 var gun_model_x_offset : float = 22
+var walk_direction : Enums.directions = 0
+var aim_direction : Enums.directions = 0
+
 
 @onready var aim_indicator_mount_point: Node2D = $AimIndicatorMountPoint
 
 func _physics_process(delta: float) -> void:
-	# Flip sprite to oriented direction
+	# Tracking the directions for our animation tree
 	if velocity.x > 0:
-		$PlayerModel.flip_h = true
-		$GunMountPoint/GunModel.flip_h = false
-		$GunMountPoint/GunModel.position.x = gun_model_x_offset
+		walk_direction = Enums.directions.RIGHT
 	else:
-		$PlayerModel.flip_h = false
-		$GunMountPoint/GunModel.flip_h = true
-		$GunMountPoint/GunModel.position.x = -gun_model_x_offset
-		
+		walk_direction = Enums.directions.LEFT
+	
+	if -PI/2 <= firing_vector.angle() and firing_vector.angle() <= PI/2:
+		aim_direction = Enums.directions.RIGHT
+	else:
+		aim_direction = Enums.directions.LEFT
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -59,6 +62,13 @@ func handle_aiming_state():
 	
 	# Rotate the aim indicator to match the firing angle
 	aim_indicator_mount_point.global_rotation = firing_vector.angle() + .5 * PI
+	if velocity.is_zero_approx():
+		$GunMountPoint.global_rotation = 0
+	else:
+		if aim_direction == Enums.directions.LEFT:
+			$GunMountPoint.global_rotation = firing_vector.angle() + PI
+		else:
+			$GunMountPoint.global_rotation = firing_vector.angle()
 	$Telenade.translate(global_position - $Telenade.global_position)
 	if Input.is_action_just_pressed("FiringAction"):
 		player_state = Enums.player_actions.POWERING

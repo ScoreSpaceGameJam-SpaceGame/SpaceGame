@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://bghx2oxnj2vx2"]
+[gd_scene load_steps=14 format=4 uid="uid://bghx2oxnj2vx2"]
 
 [ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
 [ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
 [ext_resource type="TileSet" uid="uid://qprgehqdwpm2" path="res://levels/main_level/map_tileset.tres" id="3_b03ey"]
 [ext_resource type="AudioStream" uid="uid://dtji5ehw3sg5s" path="res://levels/main_level/Inevitable Force.wav" id="3_yrvgj"]
 [ext_resource type="Texture2D" uid="uid://boud6tci7v2sb" path="res://levels/main_level/placeholder-background.png" id="4_3mcrr"]
+[ext_resource type="Texture2D" uid="uid://dxic68s0fci4r" path="res://characters/player/sprite_assets/score_background.png" id="5_xensf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
 size = Vector2(7.42501, 2099.21)
@@ -20,6 +21,16 @@ size = Vector2(1150.98, 28.4935)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyoiy"]
 size = Vector2(1144.02, 34.1295)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnmhm"]
+texture = ExtResource("5_xensf")
+expand_margin_left = 40.0
+expand_margin_top = 20.0
+expand_margin_right = 40.0
+expand_margin_bottom = 23.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_411i7"]
+bg_color = Color(0.227451, 0.376471, 0.290196, 1)
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_dvjk0")
@@ -81,7 +92,25 @@ autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Score" type="Label" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 7.56807
+offset_top = 59.7036
+offset_right = 204.568
+offset_bottom = 86.7036
+theme_override_styles/background = SubResource("StyleBoxTexture_xnmhm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_411i7")
+value = 50.0
+show_percentage = false
+
+[node name="Score" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
 offset_left = 16.2635
 offset_top = 6.36395
 offset_right = 117.263

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://draeu53ddc1s7"
-path="res://.godot/imported/rpg_sheet.png-0cea60cdf3cdfb1fda47aed487c8a280.ctex"
+uid="uid://dxic68s0fci4r"
+path="res://.godot/imported/score_background.png-84e4966e56a76571620f67f10cd3d610.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/player/rpg_sheet.png"
-dest_files=["res://.godot/imported/rpg_sheet.png-0cea60cdf3cdfb1fda47aed487c8a280.ctex"]
+source_file="res://characters/player/sprite_assets/score_background.png"
+dest_files=["res://.godot/imported/score_background.png-84e4966e56a76571620f67f10cd3d610.ctex"]
 
 [params]
 
