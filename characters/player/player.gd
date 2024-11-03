@@ -65,4 +65,4 @@ func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):
 		global_position = $Telenade.global_position
 		player_state = Enums.player_actions.AIMING
-		
+		$Telenade.visible=false

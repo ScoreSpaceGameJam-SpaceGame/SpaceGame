@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://bghx2oxnj2vx2"]
+[gd_scene load_steps=10 format=4 uid="uid://bghx2oxnj2vx2"]
 
 [ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
 [ext_resource type="Texture2D" uid="uid://dlryeq2iagjr6" path="res://levels/main_level/placerholderblock.png" id="1_i6ymy"]
+[ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
 [ext_resource type="AudioStream" uid="uid://dtji5ehw3sg5s" path="res://levels/main_level/Inevitable Force.wav" id="3_yrvgj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pc5of"]
@@ -20,13 +21,13 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_pc5of")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
-size = Vector2(15.4218, 651.062)
+size = Vector2(21.7357, 2100.79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3auv8"]
-size = Vector2(27.2258, 651.528)
+size = Vector2(22.1044, 2081.91)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyoiy"]
-size = Vector2(780.113, 93.569)
+size = Vector2(1144.02, 34.1295)
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_dvjk0")
@@ -48,7 +49,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBounds"]
-position = Vector2(1160.21, 324.175)
+position = Vector2(1157.05, -400.69)
 shape = SubResource("RectangleShape2D_n7nil")
 
 [node name="LeftBounds" type="StaticBody2D" parent="."]
@@ -56,13 +57,16 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBounds"]
-position = Vector2(-13.1266, 321.71)
+position = Vector2(-10.5659, -393.482)
 shape = SubResource("RectangleShape2D_3auv8")
 
 [node name="Death" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Death"]
-position = Vector2(557.904, 717.212)
+position = Vector2(577.391, 1400)
 shape = SubResource("RectangleShape2D_pyoiy")
+
+[node name="Player" parent="Death" instance=ExtResource("2_cjvwa")]
+position = Vector2(654.098, 258.616)
 
 [connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]
