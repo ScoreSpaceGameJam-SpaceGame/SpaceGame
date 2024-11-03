@@ -11,15 +11,16 @@ const WIDTH_OF_TILESET = 2
 const HEIGHT_OF_TILESET = 2
 const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
-
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
 
+var score = 0
 var tile_map_layers: Array = []
 
 func _ready() -> void:
 	audio_stream.finished.connect(restart_music)
 	tile_map_layers.push_back($InitialTileMapLayer)
 	generate_new_tile_map_layer()
+	Global.current_score = 0
 
 func restart_music() -> void:
 	audio_stream.play()
@@ -27,16 +28,14 @@ func restart_music() -> void:
 func _physics_process(delta: float) -> void:
 	for tilemap in tile_map_layers:
 		tilemap.translate(Vector2.DOWN * SCROLL_SPEED)
-	
 
-func _on_death_body_entered(body: Node2D) -> void:
-	if "Player" in body.get_groups():
-		print_debug("Player will have died here")
-		
-	if body is TileMapLayer:
-		tile_map_layers.pop_at(tile_map_layers.find(body))
-		body.queue_free()
-		generate_new_tile_map_layer()
+func _on_tile_map_death_body_entered(body: Node2D) -> void:
+	if body is not TileMapLayer:
+		return
+
+	tile_map_layers.pop_at(tile_map_layers.find(body))
+	body.queue_free()
+	generate_new_tile_map_layer()
 
 func generate_new_tile_map_layer() -> void:
 	# Instantiate the variables we will need
@@ -64,3 +63,15 @@ func generate_new_tile_map_layer() -> void:
 	new_tile_map_layer.position = Vector2(0, -800)
 	$".".add_child(new_tile_map_layer)
 	tile_map_layers.push_back(new_tile_map_layer)
+
+func _on_update_score() -> void:
+	Global.current_score += 1
+	$CanvasLayer/Score.text = str(Global.current_score)
+	$ScoreTimer.start()
+
+
+func _on_player_death_body_entered(body: Node2D) -> void:
+	if "Player" not in body.get_groups():
+		return
+	$ScoreTimer.stop()
+	Global.game_over()
