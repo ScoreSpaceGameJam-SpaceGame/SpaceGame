@@ -1,14 +1,14 @@
 extends Node2D
 
-const SCROLL_SPEED: float = 1
+const SCROLL_SPEED: float = 0
 const TILE_MAP_LAYER_WIDTH = 90
 const TILE_MAP_LAYER_HEIGHT = 50
 const MIN_NUMBER_OF_PLATFORMS_PER_LAYER = 20
 const MAX_NUMBER_OF_PLATFORMS_PER_LAYER = 40
 const MIN_WIDTH_OF_PLATFORM = 3
 const MAX_WIDTH_OF_PLATFORM = 7
-const WIDTH_OF_TILESET = 2
-const HEIGHT_OF_TILESET = 2
+const WIDTH_OF_TILESET = 5
+const HEIGHT_OF_TILESET = 1
 const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
@@ -58,7 +58,7 @@ func generate_new_tile_map_layer() -> void:
 			new_tile_map_layer.set_cell(
 				Vector2i(starting_location.x + j, starting_location.y), 
 				0, 
-				Vector2i(RandomNumberGenerator.new().randi_range(0, WIDTH_OF_TILESET - 1), RandomNumberGenerator.new().randi_range(0, WIDTH_OF_TILESET -1))
+				Vector2i(RandomNumberGenerator.new().randi_range(0, WIDTH_OF_TILESET - 1), RandomNumberGenerator.new().randi_range(0, HEIGHT_OF_TILESET -1))
 			)
 	new_tile_map_layer.position = Vector2(0, -800)
 	$".".add_child(new_tile_map_layer)

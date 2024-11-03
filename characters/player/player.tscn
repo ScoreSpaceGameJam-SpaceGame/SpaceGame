@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://domnmo2ft2frd"]
+[gd_scene load_steps=23 format=3 uid="uid://domnmo2ft2frd"]
 
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_k5q7q"]
+[ext_resource type="Texture2D" uid="uid://jvc258ad5pth" path="res://characters/player/player_sheet.png" id="2_ggpg0"]
 [ext_resource type="PackedScene" uid="uid://32kddvgjo03b" path="res://characters/player/aim_indicator.tscn" id="2_nkr18"]
 [ext_resource type="PackedScene" uid="uid://xakoy6oyk2hs" path="res://characters/player/telenade.tscn" id="3_741t6"]
-[ext_resource type="Texture2D" uid="uid://c8dhx0r8nlp2v" path="res://characters/player/player.png" id="4_vptko"]
+[ext_resource type="Texture2D" uid="uid://draeu53ddc1s7" path="res://characters/player/rpg_sheet.png" id="3_h3uqd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vym13"]
 radius = 0.330596
@@ -11,13 +12,158 @@ height = 1.04906
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nnexd"]
 
+[sub_resource type="Animation" id="Animation_dej4u"]
+resource_name = "Idle"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 3, 6, 9, 12, 15, 18]
+}
+
+[sub_resource type="Animation" id="Animation_k2h54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ov46y"]
+resource_name = "Walk"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 10, 13, 16, 19]
+}
+
+[sub_resource type="Animation" id="Animation_ne5jp"]
+resource_name = "Shoot"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 5, 8, 11, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.05, 0.07, 0.1, 0.14, 0.17, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0c6m"]
+_data = {
+"Idle": SubResource("Animation_dej4u"),
+"RESET": SubResource("Animation_k2h54"),
+"Shoot": SubResource("Animation_ne5jp"),
+"Walk": SubResource("Animation_ov46y")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gd4sf"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3cw21"]
+animation = &"Shoot"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wpmc4"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mkk04"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_32l6d"]
+advance_mode = 2
+advance_expression = "not velocity.is_zero_approx()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jeppl"]
+advance_mode = 2
+advance_expression = "velocity.is_zero_approx()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m651u"]
+advance_mode = 2
+advance_expression = "is_shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_syws6"]
+advance_mode = 2
+advance_expression = "is_shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4gwai"]
+advance_mode = 2
+advance_expression = "!is_shooting"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xtmv7"]
+states/Idle/node = SubResource("AnimationNodeAnimation_gd4sf")
+states/Idle/position = Vector2(507, 100)
+states/Shoot/node = SubResource("AnimationNodeAnimation_3cw21")
+states/Shoot/position = Vector2(714, 140)
+states/Start/position = Vector2(199, 100)
+states/Walk/node = SubResource("AnimationNodeAnimation_wpmc4")
+states/Walk/position = Vector2(507, 189)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_mkk04"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_32l6d"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_jeppl"), "Idle", "Shoot", SubResource("AnimationNodeStateMachineTransition_m651u"), "Walk", "Shoot", SubResource("AnimationNodeStateMachineTransition_syws6"), "Shoot", "Idle", SubResource("AnimationNodeStateMachineTransition_4gwai")]
+graph_offset = Vector2(-103, 25)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_k5q7q")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("4_vptko")
+[node name="PlayerModel" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ggpg0")
+hframes = 3
+vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -0.05)
 scale = Vector2(20, 20)
 shape = SubResource("CapsuleShape2D_vym13")
@@ -27,7 +173,25 @@ shape = SubResource("CapsuleShape2D_vym13")
 [node name="AimIndicator" parent="AimIndicatorMountPoint" instance=ExtResource("2_nkr18")]
 position = Vector2(0, -55.08)
 
+[node name="GunMountPoint" type="Node2D" parent="."]
+
+[node name="GunModel" type="Sprite2D" parent="GunMountPoint"]
+texture_filter = 1
+position = Vector2(22, 0)
+texture = ExtResource("3_h3uqd")
+vframes = 7
+
 [node name="Telenade" parent="." instance=ExtResource("3_741t6")]
 visible = false
 physics_material_override = SubResource("PhysicsMaterial_nnexd")
 gravity_scale = 0.08
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0c6m")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_xtmv7")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")

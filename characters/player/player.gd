@@ -8,10 +8,23 @@ var player_state : Enums.player_actions = Enums.player_actions.AIMING
 var firing_vector : Vector2
 var original_mouse_position_when_firing : Vector2
 var firing_power : float
+var is_shooting: bool = false
+var gun_model_x_offset : float = 22
 
 @onready var aim_indicator_mount_point: Node2D = $AimIndicatorMountPoint
 
 func _physics_process(delta: float) -> void:
+	# Flip sprite to oriented direction
+	if velocity.x > 0:
+		$PlayerModel.flip_h = true
+		$GunMountPoint/GunModel.flip_h = false
+		$GunMountPoint/GunModel.position.x = gun_model_x_offset
+	else:
+		$PlayerModel.flip_h = false
+		$GunMountPoint/GunModel.flip_h = true
+		$GunMountPoint/GunModel.position.x = -gun_model_x_offset
+		
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -42,6 +55,7 @@ func handle_aiming_state():
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
 	
 	# Rotate the aim indicator to match the firing angle
 	aim_indicator_mount_point.global_rotation = firing_vector.angle() + .5 * PI
@@ -51,11 +65,13 @@ func handle_aiming_state():
 		original_mouse_position_when_firing = get_global_mouse_position()
 
 func handle_powering_state():
+	velocity = Vector2.ZERO
 	var x_power : float = get_global_mouse_position().distance_to(original_mouse_position_when_firing)
 	$Telenade.translate(global_position - $Telenade.global_position)
 	firing_power = clamp(log(x_power) * x_power / 2, 0, 100) # TODO use this
 	
 	if Input.is_action_just_released("FiringAction"):
+		is_shooting = true
 		player_state = Enums.player_actions.FIRING
 		$Telenade.visible = true
 		$Telenade.global_rotation = firing_vector.angle()
@@ -63,6 +79,7 @@ func handle_powering_state():
 
 func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):
+		is_shooting = false
 		global_position = $Telenade.global_position
 		player_state = Enums.player_actions.AIMING
 		$Telenade.visible=false

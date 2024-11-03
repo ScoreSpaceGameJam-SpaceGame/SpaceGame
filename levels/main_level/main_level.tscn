@@ -1,30 +1,19 @@
 [gd_scene load_steps=11 format=4 uid="uid://bghx2oxnj2vx2"]
 
 [ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
-[ext_resource type="Texture2D" uid="uid://dlryeq2iagjr6" path="res://levels/main_level/placerholderblock.png" id="1_i6ymy"]
 [ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
+[ext_resource type="TileSet" uid="uid://qprgehqdwpm2" path="res://levels/main_level/map_tileset.tres" id="3_b03ey"]
 [ext_resource type="AudioStream" uid="uid://dtji5ehw3sg5s" path="res://levels/main_level/Inevitable Force.wav" id="3_yrvgj"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pc5of"]
-texture = ExtResource("1_i6ymy")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
-1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
-
-[sub_resource type="TileSet" id="TileSet_to1d7"]
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_pc5of")
+[ext_resource type="Texture2D" uid="uid://boud6tci7v2sb" path="res://levels/main_level/placeholder-background.png" id="4_3mcrr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
 size = Vector2(7.42501, 2099.21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3auv8"]
 size = Vector2(21.4294, 2082.29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijkol"]
+size = Vector2(1151.63, 20.362)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g51pk"]
 size = Vector2(1150.98, 28.4935)
@@ -39,8 +28,9 @@ script = ExtResource("1_dvjk0")
 position = Vector2(654.098, 258.616)
 
 [node name="InitialTileMapLayer" type="TileMapLayer" parent="." groups=["testing"]]
+z_index = 10
 tile_map_data = PackedByteArray("AAARACYAAAAAAAAAAAASACYAAAAAAAAAAAATACYAAAAAAAAAAAAUACYAAAAAAAAAAAAVACYAAAAAAAAAAAAWACYAAAAAAAAAAAAXACYAAAAAAAAAAAAYACYAAAAAAAAAAAAZACYAAAAAAAAAAAAaACYAAAAAAAAAAAAbACYAAAAAAAAAAAAcACYAAAAAAAAAAAAdACYAAAAAAAAAAAAeACYAAAAAAAAAAAAfACYAAAAAAAAAAAAgACYAAAAAAAAAAAAhACYAAAAAAAAAAAAqAB0AAAAAAAAAAAArAB0AAAAAAAAAAAAsAB0AAAAAAAAAAAAtAB0AAAAAAAAAAAAuAB0AAAAAAAAAAAAvAB0AAAAAAAAAAAAwAB0AAAAAAAAAAAAxAB0AAAAAAAAAAAAyAB0AAAAAAAAAAAAzAB0AAAAAAAAAAAA0AB0AAAAAAAAAAAA1AB0AAAAAAAAAAAA2AB0AAAAAAAAAAAAcABgAAAAAAAAAAAAbABgAAAAAAAAAAAAaABgAAAAAAAAAAAAZABgAAAAAAAAAAAAYABgAAAAAAAAAAAAXABgAAAAAAAAAAAAWABgAAAAAAAAAAAAVABcAAAAAAAAAAAAUABcAAAAAAAAAAAATABcAAAAAAAAAAAASABcAAAAAAAAAAAARABcAAAAAAAAAAAAQABcAAAAAAAAAAAAPABcAAAAAAAAAAAAkABIAAAAAAAAAAAAlABIAAAAAAAAAAAAmABIAAAAAAAAAAAAnABIAAAAAAAAAAAAoABIAAAAAAAAAAAApABIAAAAAAAAAAAAqABIAAAAAAAAAAAArABIAAAAAAAAAAAAsABIAAAAAAAAAAAAtABEAAAAAAAAAAAAuABEAAAAAAAAAAAAvABEAAAAAAAAAAAAwABEAAAAAAAAAAAAxABEAAAAAAAAAAAAyABEAAAAAAAAAAAAzABEAAAAAAAAAAAA0ABEAAAAAAAAAAAAlAAgAAAAAAAAAAAAkAAgAAAAAAAAAAAAjAAgAAAAAAAAAAAAiAAgAAAAAAAAAAAAhAAgAAAAAAAAAAAAgAAgAAAAAAAAAAAAfAAgAAAAAAAAAAAAeAAgAAAAAAAAAAAAdAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAAbAAgAAAAAAAAAAAAaAAgAAAAAAAAAAAAZAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAWAAgAAAAAAAAAAAAVAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAATAAgAAAAAAAAAAAASAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_to1d7")
+tile_set = ExtResource("3_b03ey")
 use_kinematic_bodies = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -66,6 +56,14 @@ collision_mask = 3
 position = Vector2(-10.9034, -393.292)
 shape = SubResource("RectangleShape2D_3auv8")
 
+[node name="TopBounds" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBounds"]
+position = Vector2(575.94, -11.4731)
+shape = SubResource("RectangleShape2D_ijkol")
+
 [node name="PlayerDeath" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeath"]
@@ -89,6 +87,14 @@ offset_top = 6.36395
 offset_right = 117.263
 offset_bottom = 41.364
 text = "0"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -99
+position = Vector2(576.535, 324.339)
+rotation = 1.5708
+scale = Vector2(2.89109, 4.49503)
+texture = ExtResource("4_3mcrr")
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="TileMapDeath" to="." method="_on_tile_map_death_body_entered"]
