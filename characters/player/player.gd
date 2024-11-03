@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED : float = 50.0
+const SPEED : float = 200.0
 const FIRE_POWER_MULTIPLYER : float = 1.25
 
 var player_state : Enums.player_actions = Enums.player_actions.AIMING
@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 		Enums.player_actions.AIMING:
 			handle_aiming_state()
 		Enums.player_actions.POWERING:
-			handle_powering_state(delta)
+			handle_powering_state()
 		Enums.player_actions.FIRING:
 			if Input.is_action_pressed("Teleport"):
 				# Teleport player to the grenade
@@ -50,7 +50,7 @@ func handle_aiming_state():
 		player_state = Enums.player_actions.POWERING
 		original_mouse_position_when_firing = get_global_mouse_position()
 
-func handle_powering_state(delta: float):
+func handle_powering_state():
 	var x_power : float = get_global_mouse_position().distance_to(original_mouse_position_when_firing)
 	$Telenade.translate(global_position - $Telenade.global_position)
 	firing_power = clamp(log(x_power) * x_power / 2, 0, 100) # TODO use this
@@ -59,10 +59,10 @@ func handle_powering_state(delta: float):
 		player_state = Enums.player_actions.FIRING
 		$Telenade.visible = true
 		$Telenade.global_rotation = firing_vector.angle()
-		$Telenade.apply_central_impulse(firing_vector.normalized() * 100 * FIRE_POWER_MULTIPLYER)
+		$Telenade.apply_central_impulse(firing_vector.normalized() * 500 * FIRE_POWER_MULTIPLYER)
 
 func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):
 		global_position = $Telenade.global_position
 		player_state = Enums.player_actions.AIMING
-		
+		$Telenade.visible=false

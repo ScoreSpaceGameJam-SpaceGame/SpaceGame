@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SpaceGame"
-run/main_scene="res://levels/prototype.tscn"
+run/main_scene="res://levels/main_level/main_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,9 +19,25 @@ config/icon="res://icon.svg"
 
 Enums="*res://globals/enums.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="SpaceGame"
+
+[file_customization]
+
+folder_colors={
+"res://characters/": "green",
+"res://globals/": "orange",
+"res://levels/": "red"
+}
+
+[global_group]
+
+Player=""
 
 [input]
 

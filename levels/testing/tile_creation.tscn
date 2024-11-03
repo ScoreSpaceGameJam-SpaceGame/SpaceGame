@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtussfwpovc77"]
+
+[ext_resource type="Texture2D" uid="uid://dlryeq2iagjr6" path="res://levels/main_level/placerholderblock.png" id="1_6u3uc"]
+
+[sub_resource type="GDScript" id="GDScript_4t6g4"]
+resource_name = "testing_tile_creation"
+script/source = "extends Node2D
+
+
+"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rg6vm"]
+texture = ExtResource("1_6u3uc")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_l0eey"]
+sources/0 = SubResource("TileSetAtlasSource_rg6vm")
+
+[node name="TileCreation" type="Node2D"]
+script = SubResource("GDScript_4t6g4")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray(0, 0, 10, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 7, 0, 0, 0, 0, 0, 1, 0, 0, 0, 11, 0, 6, 0, 0, 0, 1, 0, 0, 0, 0, 0, 11, 0, 7, 0, 0, 0, 1, 0, 1, 0, 0, 0)
+tile_set = SubResource("TileSet_l0eey")
+
+[node name="Camera2D" type="Camera2D" parent="."]
