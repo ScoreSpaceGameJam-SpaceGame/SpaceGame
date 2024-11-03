@@ -10,16 +10,17 @@
 
 [node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
 position = Vector2(0, 0.4)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(8, 8)
 mesh = SubResource("SphereMesh_ow5qr")
 
 [node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.745098)
-scale = Vector2(0.15, 0.15)
+position = Vector2(0, 12)
+scale = Vector2(10, 10)
 mesh = SubResource("SphereMesh_7na1x")
 
 [node name="MeshInstance2D4" type="MeshInstance2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.501961)
-position = Vector2(0, -0.4)
-scale = Vector2(0.1, 0.1)
+position = Vector2(0, -9.55)
+scale = Vector2(5, 5)
 mesh = SubResource("SphereMesh_imbce")

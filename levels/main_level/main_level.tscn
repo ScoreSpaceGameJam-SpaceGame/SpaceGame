@@ -1,40 +1,40 @@
-[gd_scene load_steps=7 format=4 uid="uid://bghx2oxnj2vx2"]
+[gd_scene load_steps=9 format=4 uid="uid://bghx2oxnj2vx2"]
 
 [ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
 [ext_resource type="Texture2D" uid="uid://dlryeq2iagjr6" path="res://levels/main_level/placerholderblock.png" id="1_i6ymy"]
 [ext_resource type="AudioStream" uid="uid://dtji5ehw3sg5s" path="res://levels/main_level/Inevitable Force.wav" id="3_yrvgj"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b6jr1"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pc5of"]
 texture = ExtResource("1_i6ymy")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -8, -8, -8, 8, 8, 8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
 0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
 1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
 
-[sub_resource type="TileSet" id="TileSet_flf2a"]
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
-sources/0 = SubResource("TileSetAtlasSource_b6jr1")
+[sub_resource type="TileSet" id="TileSet_to1d7"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pc5of")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rq0u"]
-size = Vector2(1700, 115.966)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
+size = Vector2(15.4218, 651.062)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3auv8"]
+size = Vector2(27.2258, 651.528)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pyoiy"]
+size = Vector2(780.113, 93.569)
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_dvjk0")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["testing"]]
-tile_map_data = PackedByteArray("AAAQABQAAAAAAAAAAAAQABUAAAAAAAEAAAARABQAAAABAAAAAAARABUAAAABAAEAAAASABQAAAAAAAAAAAASABUAAAAAAAEAAAATABQAAAABAAAAAAATABUAAAABAAEAAAAUABQAAAAAAAAAAAAUABUAAAAAAAEAAAAVABQAAAABAAAAAAAVABUAAAABAAEAAAAZABsAAAAAAAAAAAAZABwAAAAAAAEAAAAaABsAAAABAAAAAAAaABwAAAABAAEAAAAbABsAAAAAAAAAAAAbABwAAAAAAAEAAAAcABsAAAABAAAAAAAcABwAAAABAAEAAAAdABsAAAAAAAAAAAAdABwAAAAAAAEAAAAeABsAAAABAAAAAAAeABwAAAABAAEAAAAgAAsAAAAAAAAAAAAgAAwAAAAAAAEAAAAhAAsAAAABAAAAAAAhAAwAAAABAAEAAAAiAAsAAAAAAAAAAAAiAAwAAAAAAAEAAAAjAAsAAAABAAAAAAAjAAwAAAABAAEAAAAkAAsAAAAAAAAAAAAkAAwAAAAAAAEAAAAlAAsAAAABAAAAAAAlAAwAAAABAAEAAAAlABEAAAAAAAAAAAAlABIAAAAAAAEAAAAmABEAAAABAAAAAAAmABIAAAABAAEAAAAnABEAAAAAAAAAAAAnABIAAAAAAAEAAAAoABEAAAABAAAAAAAoABIAAAABAAEAAAApABEAAAAAAAAAAAApABIAAAAAAAEAAAAqABEAAAABAAAAAAAqABIAAAABAAEAAAA=")
-tile_set = SubResource("TileSet_flf2a")
-
-[node name="Death" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Death"]
-position = Vector2(555.255, 741.863)
-shape = SubResource("RectangleShape2D_6rq0u")
+[node name="InitialTileMapLayer" type="TileMapLayer" parent="." groups=["testing"]]
+tile_map_data = PackedByteArray("AAARACYAAAAAAAAAAAASACYAAAAAAAAAAAATACYAAAAAAAAAAAAUACYAAAAAAAAAAAAVACYAAAAAAAAAAAAWACYAAAAAAAAAAAAXACYAAAAAAAAAAAAYACYAAAAAAAAAAAAZACYAAAAAAAAAAAAaACYAAAAAAAAAAAAbACYAAAAAAAAAAAAcACYAAAAAAAAAAAAdACYAAAAAAAAAAAAeACYAAAAAAAAAAAAfACYAAAAAAAAAAAAgACYAAAAAAAAAAAAhACYAAAAAAAAAAAAqAB0AAAAAAAAAAAArAB0AAAAAAAAAAAAsAB0AAAAAAAAAAAAtAB0AAAAAAAAAAAAuAB0AAAAAAAAAAAAvAB0AAAAAAAAAAAAwAB0AAAAAAAAAAAAxAB0AAAAAAAAAAAAyAB0AAAAAAAAAAAAzAB0AAAAAAAAAAAA0AB0AAAAAAAAAAAA1AB0AAAAAAAAAAAA2AB0AAAAAAAAAAAAcABgAAAAAAAAAAAAbABgAAAAAAAAAAAAaABgAAAAAAAAAAAAZABgAAAAAAAAAAAAYABgAAAAAAAAAAAAXABgAAAAAAAAAAAAWABgAAAAAAAAAAAAVABcAAAAAAAAAAAAUABcAAAAAAAAAAAATABcAAAAAAAAAAAASABcAAAAAAAAAAAARABcAAAAAAAAAAAAQABcAAAAAAAAAAAAPABcAAAAAAAAAAAAkABIAAAAAAAAAAAAlABIAAAAAAAAAAAAmABIAAAAAAAAAAAAnABIAAAAAAAAAAAAoABIAAAAAAAAAAAApABIAAAAAAAAAAAAqABIAAAAAAAAAAAArABIAAAAAAAAAAAAsABIAAAAAAAAAAAAtABEAAAAAAAAAAAAuABEAAAAAAAAAAAAvABEAAAAAAAAAAAAwABEAAAAAAAAAAAAxABEAAAAAAAAAAAAyABEAAAAAAAAAAAAzABEAAAAAAAAAAAA0ABEAAAAAAAAAAAAlAAgAAAAAAAAAAAAkAAgAAAAAAAAAAAAjAAgAAAAAAAAAAAAiAAgAAAAAAAAAAAAhAAgAAAAAAAAAAAAgAAgAAAAAAAAAAAAfAAgAAAAAAAAAAAAeAAgAAAAAAAAAAAAdAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAAbAAgAAAAAAAAAAAAaAAgAAAAAAAAAAAAZAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAWAAgAAAAAAAAAAAAVAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAATAAgAAAAAAAAAAAASAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_to1d7")
+use_kinematic_bodies = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -42,5 +42,27 @@ anchor_mode = 0
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_yrvgj")
 autoplay = true
+
+[node name="RightBounds" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBounds"]
+position = Vector2(1160.21, 324.175)
+shape = SubResource("RectangleShape2D_n7nil")
+
+[node name="LeftBounds" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBounds"]
+position = Vector2(-13.1266, 321.71)
+shape = SubResource("RectangleShape2D_3auv8")
+
+[node name="Death" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death"]
+position = Vector2(557.904, 717.212)
+shape = SubResource("RectangleShape2D_pyoiy")
 
 [connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]
