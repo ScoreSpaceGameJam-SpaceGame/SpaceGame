@@ -11,4 +11,5 @@ func _on_exit_pressed() -> void:
 
 func _on_reset_score_pressed() -> void:
 	Global.save_score(0)
+	Global.high_score = 0
 	$Label.text = "High Score: 0"

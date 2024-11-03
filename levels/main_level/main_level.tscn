@@ -24,13 +24,17 @@ size = Vector2(1144.02, 34.1295)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnmhm"]
 texture = ExtResource("5_xensf")
-expand_margin_left = 40.0
-expand_margin_top = 20.0
-expand_margin_right = 40.0
-expand_margin_bottom = 23.0
+expand_margin_left = 47.0
+expand_margin_top = 18.0
+expand_margin_right = 37.0
+expand_margin_bottom = 22.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_411i7"]
 bg_color = Color(0.227451, 0.376471, 0.290196, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_dvjk0")
@@ -100,22 +104,22 @@ offset_bottom = 40.0
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 7.56807
-offset_top = 59.7036
-offset_right = 204.568
-offset_bottom = 86.7036
+offset_left = 50.4538
+offset_top = 33.6359
+offset_right = 247.454
+offset_bottom = 60.6359
 theme_override_styles/background = SubResource("StyleBoxTexture_xnmhm")
 theme_override_styles/fill = SubResource("StyleBoxFlat_411i7")
-value = 50.0
+max_value = 1.0
 show_percentage = false
 
-[node name="Score" type="Label" parent="CanvasLayer/Control"]
+[node name="Score" type="Label" parent="CanvasLayer/Control/ProgressBar"]
 layout_mode = 0
-offset_left = 16.2635
-offset_top = 6.36395
-offset_right = 117.263
-offset_bottom = 41.364
-text = "0"
+offset_left = 9.36359
+offset_top = -0.840881
+offset_right = 110.364
+offset_bottom = 22.1591
+text = "Score: 0000"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -99

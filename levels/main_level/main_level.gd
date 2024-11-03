@@ -21,6 +21,9 @@ func _ready() -> void:
 	tile_map_layers.push_back($InitialTileMapLayer)
 	generate_new_tile_map_layer()
 	Global.current_score = 0
+	
+	if not Global.high_score:
+		Global.get_high_score()
 
 func restart_music() -> void:
 	audio_stream.play()
@@ -66,7 +69,9 @@ func generate_new_tile_map_layer() -> void:
 
 func _on_update_score() -> void:
 	Global.current_score += 1
-	$CanvasLayer/Control/Score.text = str(Global.current_score)
+	$CanvasLayer/Control/ProgressBar/Score.text = "Score: %s" % str(Global.current_score)
+	$CanvasLayer/Control/ProgressBar.value = clamp(float(Global.current_score) / float(Global.high_score), 0, 1)
+	
 	$ScoreTimer.start()
 
 
