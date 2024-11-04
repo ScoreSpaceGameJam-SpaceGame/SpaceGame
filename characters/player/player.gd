@@ -11,8 +11,8 @@ var original_mouse_position_when_firing : Vector2
 var firing_power : float
 var is_shooting: bool = false
 var gun_model_x_offset : float = 22
-var walk_direction : Enums.directions = 0
-var aim_direction : Enums.directions = 0
+var walk_direction : Enums.directions = Enums.directions.LEFT
+var aim_direction : Enums.directions = Enums.directions.LEFT
 var gun_energy: float = 100
 
 var failed_teleport_sfx = preload("res://characters/player/failed_teleport.wav")

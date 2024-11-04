@@ -26,15 +26,15 @@ func _ready() -> void:
 	# Make the sprite unique
 	var x = RandomNumberGenerator.new().randf_range(0, 5) 
 	var y = RandomNumberGenerator.new().randf_range(0, 5)
-	var min = min(x, y)
-	var max = max(x, y)
+	var min_rand = min(x, y)
+	var max_rand = max(x, y)
 	
 	# Make sure the astroid looks normal by having a good ratio of heigh and width
-	if min/max < .75:
-		min = .75 * max
+	if min_rand/max_rand < .75:
+		min_rand = .75 * max_rand
 	
 	# Randomize whether heigh is min or max and vice versa for width
-	$Sprite.scale = Vector2(min, max) if RandomNumberGenerator.new().randi_range(0, 1) else Vector2(max, min)
+	$Sprite.scale = Vector2(min_rand, max_rand) if RandomNumberGenerator.new().randi_range(0, 1) else Vector2(max_rand, min_rand)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

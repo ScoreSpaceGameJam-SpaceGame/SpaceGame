@@ -30,7 +30,7 @@ func _ready() -> void:
 	
 	audio_stream.finished.connect(restart_music)
 	tile_map_layers.push_back($InitialTileMapLayer)
-	generate_new_tile_map_layer()
+	call_deferred("generate_new_tile_map_layer")
 	Global.current_score = 0
 	
 	if not Global.high_score:
@@ -40,7 +40,7 @@ func restart_music() -> void:
 	audio_stream.stream = main_song_loop
 	audio_stream.play()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	for tilemap in tile_map_layers:
 		tilemap.translate(Vector2.DOWN * Global.SCROLL_SPEED)
 
@@ -50,10 +50,9 @@ func _on_tile_map_death_body_entered(body: Node2D) -> void:
 
 	tile_map_layers.pop_at(tile_map_layers.find(body))
 	body.queue_free()
-	generate_new_tile_map_layer()
+	call_deferred("generate_new_tile_map_layer")
 
 func generate_new_tile_map_layer() -> void:
-	var has_recharge_spawned = false # Limits the spawn to 1
 	# Instantiate the variables we will need
 	var number_of_platforms_to_make = RandomNumberGenerator.new().randi_range(MIN_NUMBER_OF_PLATFORMS_PER_LAYER, MAX_NUMBER_OF_PLATFORMS_PER_LAYER)
 	var new_tile_map_layer = TileMapLayer.new()
