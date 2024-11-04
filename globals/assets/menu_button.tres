@@ -1,0 +1,9 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://oq7x8t7fp1jh"]
+
+[ext_resource type="Texture2D" uid="uid://cnjmejslgsuka" path="res://globals/assets/sprite_assets/menu_button.png" id="1_643sr"]
+
+[resource]
+texture = ExtResource("1_643sr")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0

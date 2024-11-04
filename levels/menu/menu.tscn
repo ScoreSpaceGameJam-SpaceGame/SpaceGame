@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bauftp7yteame"]
+[gd_scene load_steps=6 format=3 uid="uid://bauftp7yteame"]
 
 [ext_resource type="Script" path="res://levels/menu/menu.gd" id="1_qhlr6"]
 [ext_resource type="AudioStream" uid="uid://sjxhlnmspqen" path="res://levels/menu/calm_wonder.wav" id="2_8em0r"]
 [ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="2_atalm"]
+[ext_resource type="StyleBox" uid="uid://oq7x8t7fp1jh" path="res://globals/assets/menu_button.tres" id="4_ie4v7"]
+[ext_resource type="AudioStream" uid="uid://0qm6h420kouu" path="res://globals/sfx/mouse_click.wav" id="5_bv1ly"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -19,32 +21,49 @@ script = ExtResource("1_qhlr6")
 stream = ExtResource("2_8em0r")
 autoplay = true
 
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_bv1ly")
+
 [node name="VFlowContainer" type="VFlowContainer" parent="."]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -49.0
-offset_top = -75.0
-offset_right = 49.0
-offset_bottom = 75.0
+offset_left = -90.0
+offset_top = -150.0
+offset_right = 90.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/v_separation = 30
+alignment = 1
 last_wrap_alignment = 2
 
 [node name="Play" type="Button" parent="VFlowContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = ExtResource("4_ie4v7")
+theme_override_styles/pressed = ExtResource("4_ie4v7")
+theme_override_styles/normal = ExtResource("4_ie4v7")
 text = "Play"
 
 [node name="Exit" type="Button" parent="VFlowContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = ExtResource("4_ie4v7")
+theme_override_styles/pressed = ExtResource("4_ie4v7")
+theme_override_styles/normal = ExtResource("4_ie4v7")
 text = "Exit"
 
 [node name="ResetScore" type="Button" parent="VFlowContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = ExtResource("4_ie4v7")
+theme_override_styles/pressed = ExtResource("4_ie4v7")
+theme_override_styles/normal = ExtResource("4_ie4v7")
 text = "Reset Score"
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

@@ -1,16 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://pfi16yn0sc5t"]
+[gd_scene load_steps=7 format=3 uid="uid://pfi16yn0sc5t"]
 
-[ext_resource type="Texture2D" uid="uid://ce324f3yqepc4" path="res://icon.svg" id="1_d64x6"]
+[ext_resource type="Texture2D" uid="uid://cw6bydnqwdbg3" path="res://globals/assets/sprite_assets/full_battery.png" id="1_017ev"]
 
 [sub_resource type="GDScript" id="GDScript_sdxnf"]
 resource_name = "energy_cell"
 script/source = "extends StaticBody2D
 
-const recharge_amount: float = 100
+const recharge_amount: float = 40
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	translate(Vector2.DOWN * Global.SCROLL_SPEED)
-
+	
+	if $Sprite.skew == 360:
+		$Sprite.skew = 0
+	
+	$Sprite.skew += sin(delta) * 5
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method(\"recharge_gun\"):
 		body.recharge_gun(recharge_amount)
@@ -20,10 +24,16 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gyncb"]
-size = Vector2(25.5134, 25.5134)
+size = Vector2(25.5134, 8.80257)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbh1h"]
 radius = 18.0089
+
+[sub_resource type="Gradient" id="Gradient_v1ga6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_docdi"]
+gradient = SubResource("Gradient_v1ga6")
 
 [node name="StaticBody2D" type="StaticBody2D"]
 collision_layer = 0
@@ -31,16 +41,23 @@ collision_mask = 0
 script = SubResource("GDScript_sdxnf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.054822, 0.076179)
+visible = false
+position = Vector2(0.054822, 0.0709615)
 shape = SubResource("RectangleShape2D_gyncb")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_d64x6")
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("1_017ev")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_pbh1h")
+
+[node name="Light" type="PointLight2D" parent="."]
+color = Color(0.338647, 0.532726, 0.419572, 1)
+texture = SubResource("GradientTexture2D_docdi")
+texture_scale = 0.54
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

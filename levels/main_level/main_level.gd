@@ -8,10 +8,12 @@ const MIN_WIDTH_OF_PLATFORM = 3
 const MAX_WIDTH_OF_PLATFORM = 7
 const WIDTH_OF_TILESET = 5
 const HEIGHT_OF_TILESET = 1
-const SPAWN_RATE_OF_RECHARGE : float = 50.0 # Chance of spawn will be SPAWN_RATE_OF_RECHARGE / 100
+const SPAWN_RATE_OF_RECHARGE : float = 80 # Chance of spawn will be SPAWN_RATE_OF_RECHARGE / 100
 const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
+@onready var ambience : AudioStreamPlayer = $AmbiencePlayer
+@onready var button_sfx : AudioStreamPlayer = $ButtonClick
 
 const main_song_loop = preload("res://levels/main_level/inevitable_force_loop.wav")
 
@@ -22,19 +24,22 @@ func _ready() -> void:
 	# Set the stage
 	$CanvasLayer/Score.set_label("Score: 0")
 	$CanvasLayer/Score.set_progress(0)
-	$CanvasLayer/GunEnergyContainer/GunEnergy.set_label("Energy")
 	$CanvasLayer/GunEnergyContainer/GunEnergy.set_max(100)
 	$CanvasLayer/GunEnergyContainer/GunEnergy.set_progress(100)
 	
 	$Player.remaining_gun_energy.connect($CanvasLayer/GunEnergyContainer/GunEnergy.set_progress)
 	
 	audio_stream.finished.connect(restart_music)
+	ambience.finished.connect(restart_ambience)
 	tile_map_layers.push_back($InitialTileMapLayer)
 	call_deferred("generate_new_tile_map_layer")
 	Global.current_score = 0
 	
 	if not Global.high_score:
 		Global.get_high_score()
+
+func restart_ambience() -> void:
+	ambience.play()
 
 func restart_music() -> void:
 	audio_stream.stream = main_song_loop
@@ -132,13 +137,19 @@ func _on_player_death_body_entered(body: Node2D) -> void:
 
 
 func _on_exit_pressed() -> void:
+	button_sfx.play()
+	await button_sfx.finished
 	get_tree().quit()
 
 func _on_main_menu_pressed() -> void:
+	button_sfx.play()
+	await button_sfx.finished
 	call_deferred("load_main_menu")
 
 func load_main_menu():
 	get_tree().change_scene_to_file("res://levels/menu/menu.tscn")
 
 func _on_play_again_pressed() -> void:
+	button_sfx.play()
+	await button_sfx.finished
 	get_tree().reload_current_scene()
