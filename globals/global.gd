@@ -8,11 +8,6 @@ func game_over():
 		high_score = current_score
 		save_score(current_score)
 	
-	call_deferred("change_to_menu")
-	
-func change_to_menu():
-	get_tree().change_scene_to_file("res://levels/menu/menu.tscn")
-	
 func save_score(score: int) -> void:
 	var save_file = FileAccess.open("user://highscore.save", FileAccess.WRITE)
 	save_file.store_var(score)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://bghx2oxnj2vx2"]
+[gd_scene load_steps=16 format=4 uid="uid://bghx2oxnj2vx2"]
 
 [ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
 [ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
 [ext_resource type="TileSet" uid="uid://qprgehqdwpm2" path="res://levels/main_level/map_tileset.tres" id="3_b03ey"]
-[ext_resource type="AudioStream" uid="uid://dtji5ehw3sg5s" path="res://levels/main_level/Inevitable Force.wav" id="3_yrvgj"]
+[ext_resource type="AudioStream" uid="uid://bpr4mclputuaq" path="res://levels/main_level/inevitable_force_start.wav" id="4_gwp46"]
+[ext_resource type="AudioStream" uid="uid://bgqq2avmn23ta" path="res://levels/main_level/inevitable_force_end.wav" id="5_vt0u2"]
 [ext_resource type="Texture2D" uid="uid://dxic68s0fci4r" path="res://characters/player/sprite_assets/score_background.png" id="5_xensf"]
 [ext_resource type="PackedScene" uid="uid://btabuqbe7l5ad" path="res://levels/main_level/Astroid.tscn" id="6_5md4j"]
 
@@ -35,6 +36,8 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_scqkl"]
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_dvjk0")
@@ -90,8 +93,12 @@ use_kinematic_bodies = true
 anchor_mode = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_yrvgj")
+stream = ExtResource("4_gwp46")
 autoplay = true
+
+[node name="SongEndingPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vt0u2")
+volume_db = -25.0
 
 [node name="ScoreTimer" type="Timer" parent="."]
 autostart = true
@@ -156,7 +163,75 @@ motion_offset = Vector2(0, 250)
 [node name="Astroid9" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
 position = Vector2(0, 475)
 
+[node name="Menu" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_scqkl")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.5
+offset_right = 117.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="FinalScore" type="Label" parent="CanvasLayer/Menu/MarginContainer"]
+layout_mode = 2
+text = "You had a final score of: 00000"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -50.5
+offset_right = 48.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayAgain" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
+layout_mode = 2
+text = "Play Again"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
 [connection signal="body_entered" from="Boundaries/PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="Boundaries/TileMapDeath" to="." method="_on_tile_map_death_body_entered"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_update_score"]
 [connection signal="timeout" from="AstroidSpawnTimer" to="." method="_on_spawn_astroid"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

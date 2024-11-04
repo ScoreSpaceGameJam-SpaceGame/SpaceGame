@@ -8,7 +8,7 @@ script/source = "extends ParallaxLayer
 
 const START_SCROLL_SPEED: float = .1
 const START_SCROLL_OFFSET: float = -40
-const ACCELERATION_RATE: float = .3
+const ACCELERATION_RATE: float = .4
 const MAX_SCROLL_POSITION: float = 100
 
 var scroll_speed: float
