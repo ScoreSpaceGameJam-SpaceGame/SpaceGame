@@ -1,6 +1,5 @@
 extends Node2D
 
-const SCROLL_SPEED: float = 1.5
 const TILE_MAP_LAYER_WIDTH = 90
 const TILE_MAP_LAYER_HEIGHT = 50
 const MIN_NUMBER_OF_PLATFORMS_PER_LAYER = 20
@@ -9,6 +8,7 @@ const MIN_WIDTH_OF_PLATFORM = 3
 const MAX_WIDTH_OF_PLATFORM = 7
 const WIDTH_OF_TILESET = 5
 const HEIGHT_OF_TILESET = 1
+const SPAWN_RATE_OF_RECHARGE : float = 50.0 # Chance of spawn will be SPAWN_RATE_OF_RECHARGE / 100
 const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
@@ -19,6 +19,15 @@ var score = 0
 var tile_map_layers: Array = []
 
 func _ready() -> void:
+	# Set the stage
+	$CanvasLayer/Score.set_label("Score: 0")
+	$CanvasLayer/Score.set_progress(0)
+	$CanvasLayer/GunEnergyContainer/GunEnergy.set_label("Energy")
+	$CanvasLayer/GunEnergyContainer/GunEnergy.set_max(100)
+	$CanvasLayer/GunEnergyContainer/GunEnergy.set_progress(100)
+	
+	$Player.remaining_gun_energy.connect($CanvasLayer/GunEnergyContainer/GunEnergy.set_progress)
+	
 	audio_stream.finished.connect(restart_music)
 	tile_map_layers.push_back($InitialTileMapLayer)
 	generate_new_tile_map_layer()
@@ -33,7 +42,7 @@ func restart_music() -> void:
 
 func _physics_process(delta: float) -> void:
 	for tilemap in tile_map_layers:
-		tilemap.translate(Vector2.DOWN * SCROLL_SPEED)
+		tilemap.translate(Vector2.DOWN * Global.SCROLL_SPEED)
 
 func _on_tile_map_death_body_entered(body: Node2D) -> void:
 	if body is not TileMapLayer:
@@ -44,6 +53,7 @@ func _on_tile_map_death_body_entered(body: Node2D) -> void:
 	generate_new_tile_map_layer()
 
 func generate_new_tile_map_layer() -> void:
+	var has_recharge_spawned = false # Limits the spawn to 1
 	# Instantiate the variables we will need
 	var number_of_platforms_to_make = RandomNumberGenerator.new().randi_range(MIN_NUMBER_OF_PLATFORMS_PER_LAYER, MAX_NUMBER_OF_PLATFORMS_PER_LAYER)
 	var new_tile_map_layer = TileMapLayer.new()
@@ -66,9 +76,17 @@ func generate_new_tile_map_layer() -> void:
 				0, 
 				Vector2i(RandomNumberGenerator.new().randi_range(0, WIDTH_OF_TILESET - 1), RandomNumberGenerator.new().randi_range(0, HEIGHT_OF_TILESET -1))
 			)
+
 	new_tile_map_layer.position = Vector2(0, -800)
 	$".".add_child(new_tile_map_layer)
 	tile_map_layers.push_back(new_tile_map_layer)
+	
+	if RandomNumberGenerator.new().randf() <= SPAWN_RATE_OF_RECHARGE / 100.0:
+		var energy_cell := load("res://globals/assets/energy_cell.tscn").instantiate() as StaticBody2D
+		energy_cell.global_position = Vector2(RandomNumberGenerator.new().randf_range(0, get_viewport_rect().size.x), -200)
+		
+		$".".add_child(energy_cell)
+		
 
 func _on_update_score() -> void:
 	Global.current_score += 1
@@ -86,6 +104,10 @@ func _on_spawn_astroid() -> void:
 
 
 func _on_player_death_body_entered(body: Node2D) -> void:
+	if "PowerUp" in body.get_groups():
+		body.queue_free()
+		return
+	
 	if "Player" not in body.get_groups():
 		return
 	

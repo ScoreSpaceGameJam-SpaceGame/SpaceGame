@@ -11,6 +11,9 @@ func set_label(text: String) -> void:
 	
 func set_progress(val: float) -> void:
 	$ProgressBar.value = val
+
+func set_max(val: float) -> void:
+	$ProgressBar.max_value = val
 "
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnmhm"]

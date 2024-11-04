@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 const SPEED : float = 200.0
 const FIRE_POWER_MULTIPLYER : float = 1.25
+const MAX_GUN_ENERGY = 100
 
 var player_state : Enums.player_actions = Enums.player_actions.AIMING
 var firing_vector : Vector2
@@ -12,7 +13,11 @@ var is_shooting: bool = false
 var gun_model_x_offset : float = 22
 var walk_direction : Enums.directions = 0
 var aim_direction : Enums.directions = 0
+var gun_energy: float = 100
 
+var failed_teleport_sfx = preload("res://characters/player/failed_teleport.wav")
+
+signal remaining_gun_energy
 
 @onready var aim_indicator_mount_point: Node2D = $AimIndicatorMountPoint
 
@@ -86,6 +91,12 @@ func handle_powering_state():
 		else:
 			$GunMountPoint.global_rotation = firing_vector.angle()
 		
+		if gun_energy - global_position.distance_to($Telenade.global_position) / 50 < 0:
+			player_state = Enums.player_actions.AIMING
+			$SFXPlayer.stream = failed_teleport_sfx
+			$SFXPlayer.play()
+			return
+		
 		is_shooting = true
 		player_state = Enums.player_actions.FIRING
 		$Telenade.visible = true
@@ -95,7 +106,18 @@ func handle_powering_state():
 
 func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):
+		# Let everyone know we're done shooting
 		is_shooting = false
+		
+		# Handle the gun not having enough energy by returning telenade and playing sfx
+		
+		# Handle the gun having enough energy and teleport player
+		gun_energy -= global_position.distance_to($Telenade.global_position) / 50
+		remaining_gun_energy.emit(gun_energy)
 		global_position = $Telenade.global_position
 		player_state = Enums.player_actions.AIMING
 		$Telenade.visible=false
+
+func recharge_gun(amount: float) -> void:
+	gun_energy = min(gun_energy + amount, 100)
+	remaining_gun_energy.emit(gun_energy)
