@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bpr4mclputuaq" path="res://levels/main_level/inevitable_force_start.wav" id="4_gwp46"]
 [ext_resource type="AudioStream" uid="uid://bgqq2avmn23ta" path="res://levels/main_level/inevitable_force_end.wav" id="5_vt0u2"]
 [ext_resource type="PackedScene" uid="uid://btabuqbe7l5ad" path="res://levels/main_level/Astroid.tscn" id="6_5md4j"]
-[ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/score.tscn" id="6_56bkb"]
+[ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="6_56bkb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
 size = Vector2(7.42501, 2099.21)
@@ -190,6 +190,18 @@ text = "Main Menu"
 [node name="Exit" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
 layout_mode = 2
 text = "Exit Game"
+
+[node name="GunEnergyContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_right = 300
+
+[node name="GunEnergy" parent="CanvasLayer/GunEnergyContainer" instance=ExtResource("6_56bkb")]
+layout_mode = 2
 
 [connection signal="body_entered" from="Boundaries/PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="Boundaries/TileMapDeath" to="." method="_on_tile_map_death_body_entered"]

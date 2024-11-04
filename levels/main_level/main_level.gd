@@ -19,6 +19,15 @@ var score = 0
 var tile_map_layers: Array = []
 
 func _ready() -> void:
+	# Set the stage
+	$CanvasLayer/Score.set_label("Score: 0")
+	$CanvasLayer/Score.set_progress(0)
+	$CanvasLayer/GunEnergyContainer/GunEnergy.set_label("Energy")
+	$CanvasLayer/GunEnergyContainer/GunEnergy.set_max(100)
+	$CanvasLayer/GunEnergyContainer/GunEnergy.set_progress(100)
+	
+	$Player.remaining_gun_energy.connect($CanvasLayer/GunEnergyContainer/GunEnergy.set_progress)
+	
 	audio_stream.finished.connect(restart_music)
 	tile_map_layers.push_back($InitialTileMapLayer)
 	generate_new_tile_map_layer()

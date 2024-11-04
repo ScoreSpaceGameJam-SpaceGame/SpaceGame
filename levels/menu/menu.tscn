@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/menu/menu.gd" id="1_qhlr6"]
 [ext_resource type="AudioStream" uid="uid://sjxhlnmspqen" path="res://levels/menu/calm_wonder.wav" id="2_8em0r"]
-[ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/score.tscn" id="2_atalm"]
+[ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="2_atalm"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
