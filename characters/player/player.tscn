@@ -74,7 +74,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(13, 10), Vector2(13, 12), Vector2(13, 10)]
+"values": [Vector2(20, 15), Vector2(20, 18), Vector2(20, 15)]
 }
 
 [sub_resource type="Animation" id="Animation_k2h54"]
@@ -238,7 +238,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(-22, 0)]
+"values": [Vector2(-30, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -327,7 +327,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(22, 0)]
+"values": [Vector2(30, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -404,7 +404,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(-22, 0)]
+"values": [Vector2(-30, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_80h1v"]
@@ -469,7 +469,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(22, 0)]
+"values": [Vector2(30, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0c6m"]
@@ -611,6 +611,7 @@ script = ExtResource("1_k5q7q")
 
 [node name="PlayerModel" type="Sprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_ggpg0")
 hframes = 3
 vframes = 7
@@ -633,6 +634,7 @@ z_index = -1
 texture_filter = 1
 position = Vector2(13, 10)
 rotation = 0.401426
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_h3uqd")
 flip_h = true
 vframes = 7
