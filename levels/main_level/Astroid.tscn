@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://btabuqbe7l5ad"]
+
+[ext_resource type="Texture2D" uid="uid://dxtmdmfr5gseg" path="res://levels/main_level/sprite_assets/space_rock.png" id="1_ghhlt"]
+
+[sub_resource type="GDScript" id="GDScript_p53np"]
+resource_name = "astroid"
+script/source = "extends ParallaxLayer
+
+const START_SCROLL_SPEED: float = .1
+const START_SCROLL_OFFSET: float = -40
+const ACCELERATION_RATE: float = .4
+const MAX_SCROLL_POSITION: float = 100
+
+var scroll_speed: float
+var right_speed: float
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	# Set up starting values
+	motion_offset.x = RandomNumberGenerator.new().randf_range(-100, get_viewport_rect().size.x + 100)
+	motion_offset.y = START_SCROLL_OFFSET
+	scroll_speed = START_SCROLL_SPEED
+	right_speed = RandomNumberGenerator.new().randf_range(-.2, .2)
+	
+	
+	# Make the sprite unique
+	var x = RandomNumberGenerator.new().randf_range(0, 5) 
+	var y = RandomNumberGenerator.new().randf_range(0, 5)
+	var min_rand = min(x, y)
+	var max_rand = max(x, y)
+	
+	# Make sure the astroid looks normal by having a good ratio of heigh and width
+	if min_rand/max_rand < .75:
+		min_rand = .75 * max_rand
+	
+	# Randomize whether heigh is min or max and vice versa for width
+	$Sprite.scale = Vector2(min_rand, max_rand) if RandomNumberGenerator.new().randi_range(0, 1) else Vector2(max_rand, min_rand)
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	
+	# \"Fall\" based off scroll speed
+	motion_offset.y += scroll_speed
+	scroll_speed += ACCELERATION_RATE * delta
+	
+	# Get close to the center of the gravitational pull
+	
+	motion_offset.x += right_speed
+	
+	# If the astroid is too far down delete
+	if motion_offset.y > get_viewport_rect().size.y + 200:
+		queue_free()
+"
+
+[node name="Astroid" type="ParallaxLayer"]
+script = SubResource("GDScript_p53np")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(6.84106, 6.34049)
+texture = ExtResource("1_ghhlt")

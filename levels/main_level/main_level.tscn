@@ -1,0 +1,231 @@
+[gd_scene load_steps=17 format=4 uid="uid://bghx2oxnj2vx2"]
+
+[ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
+[ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
+[ext_resource type="TileSet" uid="uid://qprgehqdwpm2" path="res://levels/main_level/map_tileset.tres" id="3_b03ey"]
+[ext_resource type="AudioStream" uid="uid://bpr4mclputuaq" path="res://levels/main_level/inevitable_force_start.wav" id="4_gwp46"]
+[ext_resource type="AudioStream" uid="uid://bgqq2avmn23ta" path="res://levels/main_level/inevitable_force_end.wav" id="5_vt0u2"]
+[ext_resource type="PackedScene" uid="uid://btabuqbe7l5ad" path="res://levels/main_level/Astroid.tscn" id="6_5md4j"]
+[ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="6_56bkb"]
+[ext_resource type="AudioStream" uid="uid://cm0keepmphtb8" path="res://globals/sfx/ambience_loop.wav" id="6_il0mg"]
+[ext_resource type="AudioStream" uid="uid://0qm6h420kouu" path="res://globals/sfx/mouse_click.wav" id="7_kmxjh"]
+[ext_resource type="StyleBox" uid="uid://oq7x8t7fp1jh" path="res://globals/assets/menu_button.tres" id="8_xtf8f"]
+[ext_resource type="PackedScene" uid="uid://bapbbbar5gi8v" path="res://globals/assets/EnergyBar.tscn" id="9_bmh47"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
+size = Vector2(7.42501, 2099.21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3auv8"]
+size = Vector2(21.4294, 2082.29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijkol"]
+size = Vector2(1151.63, 20.362)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g51pk"]
+size = Vector2(2041.19, 40.8262)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pyoiy"]
+size = Vector2(1144.02, 34.1295)
+
+[node name="MainLevel" type="Node2D"]
+script = ExtResource("1_dvjk0")
+
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="RightBounds" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightBounds"]
+position = Vector2(1155.95, -401.48)
+shape = SubResource("RectangleShape2D_n7nil")
+
+[node name="LeftBounds" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftBounds"]
+position = Vector2(-10.9034, -393.292)
+shape = SubResource("RectangleShape2D_3auv8")
+
+[node name="TopBounds" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopBounds"]
+position = Vector2(575.94, -11.4731)
+shape = SubResource("RectangleShape2D_ijkol")
+
+[node name="PlayerDeath" type="Area2D" parent="Boundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/PlayerDeath"]
+position = Vector2(610.373, 756.166)
+shape = SubResource("RectangleShape2D_g51pk")
+
+[node name="TileMapDeath" type="Area2D" parent="Boundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TileMapDeath"]
+position = Vector2(577.391, 1400)
+shape = SubResource("RectangleShape2D_pyoiy")
+
+[node name="Player" parent="." instance=ExtResource("2_cjvwa")]
+position = Vector2(654.098, 258.616)
+
+[node name="InitialTileMapLayer" type="TileMapLayer" parent="." groups=["testing"]]
+z_index = 10
+tile_map_data = PackedByteArray("AAARACYAAAAAAAAAAAASACYAAAAAAAAAAAATACYAAAAAAAAAAAAUACYAAAAAAAAAAAAVACYAAAAAAAAAAAAWACYAAAAAAAAAAAAXACYAAAAAAAAAAAAYACYAAAAAAAAAAAAZACYAAAAAAAAAAAAaACYAAAAAAAAAAAAbACYAAAAAAAAAAAAcACYAAAAAAAAAAAAdACYAAAAAAAAAAAAeACYAAAAAAAAAAAAfACYAAAAAAAAAAAAgACYAAAAAAAAAAAAhACYAAAAAAAAAAAAqAB0AAAAAAAAAAAArAB0AAAAAAAAAAAAsAB0AAAAAAAAAAAAtAB0AAAAAAAAAAAAuAB0AAAAAAAAAAAAvAB0AAAAAAAAAAAAwAB0AAAAAAAAAAAAxAB0AAAAAAAAAAAAyAB0AAAAAAAAAAAAzAB0AAAAAAAAAAAA0AB0AAAAAAAAAAAA1AB0AAAAAAAAAAAA2AB0AAAAAAAAAAAAcABgAAAAAAAAAAAAbABgAAAAAAAAAAAAaABgAAAAAAAAAAAAZABgAAAAAAAAAAAAYABgAAAAAAAAAAAAXABgAAAAAAAAAAAAWABgAAAAAAAAAAAAVABcAAAAAAAAAAAAUABcAAAAAAAAAAAATABcAAAAAAAAAAAASABcAAAAAAAAAAAARABcAAAAAAAAAAAAQABcAAAAAAAAAAAAPABcAAAAAAAAAAAAkABIAAAAAAAAAAAAlABIAAAAAAAAAAAAmABIAAAAAAAAAAAAnABIAAAAAAAAAAAAoABIAAAAAAAAAAAApABIAAAAAAAAAAAAqABIAAAAAAAAAAAArABIAAAAAAAAAAAAsABIAAAAAAAAAAAAtABEAAAAAAAAAAAAuABEAAAAAAAAAAAAvABEAAAAAAAAAAAAwABEAAAAAAAAAAAAxABEAAAAAAAAAAAAyABEAAAAAAAAAAAAzABEAAAAAAAAAAAA0ABEAAAAAAAAAAAAlAAgAAAAAAAAAAAAkAAgAAAAAAAAAAAAjAAgAAAAAAAAAAAAiAAgAAAAAAAAAAAAhAAgAAAAAAAAAAAAgAAgAAAAAAAAAAAAfAAgAAAAAAAAAAAAeAAgAAAAAAAAAAAAdAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAAbAAgAAAAAAAAAAAAaAAgAAAAAAAAAAAAZAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAWAAgAAAAAAAAAAAAVAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAATAAgAAAAAAAAAAAASAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAA=")
+tile_set = ExtResource("3_b03ey")
+use_kinematic_bodies = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_gwp46")
+autoplay = true
+
+[node name="SongEndingPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vt0u2")
+volume_db = -25.0
+
+[node name="AmbiencePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_il0mg")
+volume_db = -10.0
+autoplay = true
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_kmxjh")
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AstroidSpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Score" parent="CanvasLayer" instance=ExtResource("6_56bkb")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+scroll_offset = Vector2(0, 100)
+scroll_ignore_camera_zoom = true
+
+[node name="Astroid" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+
+[node name="Astroid2" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 100)
+
+[node name="Astroid3" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 600)
+
+[node name="Astroid4" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 460)
+
+[node name="Astroid5" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+motion_offset = Vector2(0, 350)
+
+[node name="Astroid6" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 300)
+
+[node name="Astroid7" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 250)
+
+[node name="Astroid8" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+motion_offset = Vector2(0, 250)
+
+[node name="Astroid9" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 475)
+
+[node name="Menu" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.5
+offset_right = 117.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="FinalScore" type="Label" parent="CanvasLayer/Menu/MarginContainer"]
+layout_mode = 2
+text = "You had a final score of: 00000"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -75.0
+offset_right = 44.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayAgain" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = ExtResource("8_xtf8f")
+theme_override_styles/pressed = ExtResource("8_xtf8f")
+theme_override_styles/normal = ExtResource("8_xtf8f")
+text = "Play Again"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = ExtResource("8_xtf8f")
+theme_override_styles/pressed = ExtResource("8_xtf8f")
+theme_override_styles/normal = ExtResource("8_xtf8f")
+text = "Main Menu"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = ExtResource("8_xtf8f")
+theme_override_styles/pressed = ExtResource("8_xtf8f")
+theme_override_styles/normal = ExtResource("8_xtf8f")
+text = "Exit Game"
+
+[node name="GunEnergyContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_right = 220
+
+[node name="GunEnergy" parent="CanvasLayer/GunEnergyContainer" instance=ExtResource("9_bmh47")]
+layout_mode = 2
+
+[connection signal="body_entered" from="Boundaries/PlayerDeath" to="." method="_on_player_death_body_entered"]
+[connection signal="body_entered" from="Boundaries/TileMapDeath" to="." method="_on_tile_map_death_body_entered"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_update_score"]
+[connection signal="timeout" from="AstroidSpawnTimer" to="." method="_on_spawn_astroid"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
