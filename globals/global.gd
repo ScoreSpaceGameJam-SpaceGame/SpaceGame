@@ -1,6 +1,28 @@
 extends Node
 
-const SCROLL_SPEED: float = 1.5
+const SCROLL_SPEED: float = 0
+
+const walk_sounds = [
+	preload("res://globals/sfx/shoe_step_a.wav"),
+	preload("res://globals/sfx/shoe_step_b.wav"),
+	preload("res://globals/sfx/shoe_step_c.wav")
+]
+
+const land_sounds = [
+	preload("res://globals/sfx/land_step_a.wav"),
+	preload("res://globals/sfx/land_step_b.wav")
+]
+
+const teleport_sounds = [
+	preload("res://globals/sfx/teleport_a.wav"),
+	preload("res://globals/sfx/teleport_b.wav")
+]
+
+const gunshot_sounds = [
+	preload("res://globals/sfx/gun_shot_high.wav"),
+	preload("res://globals/sfx/gun_shot_medium.wav"),
+	preload("res://globals/sfx/gun_shot_low.wav")
+]
 
 var current_score: int
 var high_score: int

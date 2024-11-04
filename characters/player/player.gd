@@ -14,12 +14,14 @@ var gun_model_x_offset : float = 22
 var walk_direction : Enums.directions = Enums.directions.LEFT
 var aim_direction : Enums.directions = Enums.directions.LEFT
 var gun_energy: float = 100
+var is_falling : bool = false
 
 var failed_teleport_sfx = preload("res://characters/player/failed_teleport.wav")
 
 signal remaining_gun_energy
 
 @onready var aim_indicator_mount_point: Node2D = $AimIndicatorMountPoint
+@onready var feet_sfx_player: AudioStreamPlayer2D = $SFXPlayer
 
 func _physics_process(delta: float) -> void:
 	# Tracking the directions for our animation tree
@@ -49,7 +51,8 @@ func _physics_process(delta: float) -> void:
 			handle_firing_state()
 		_:
 			push_error("Player has entered into a state that is not allowed");
-	
+	play_sfx()
+	is_falling = not is_on_floor() # This must be the last thing the process calls besides move and slide otherwise we can't track landing
 	move_and_slide()
 
 func handle_aiming_state():
@@ -124,3 +127,13 @@ func handle_firing_state():
 func recharge_gun(amount: float) -> void:
 	gun_energy = min(gun_energy + amount, 100)
 	remaining_gun_energy.emit(gun_energy)
+
+func play_sfx() -> void:
+	if is_falling and is_on_floor():
+		feet_sfx_player.stream = Global.land_sounds.pick_random()
+		feet_sfx_player.play()
+		is_falling = false
+	if not velocity.is_zero_approx() and not is_falling and not feet_sfx_player.playing and player_state != Enums.player_actions.FIRING:
+		feet_sfx_player.stream = Global.walk_sounds.pick_random()
+		feet_sfx_player.play()
+		

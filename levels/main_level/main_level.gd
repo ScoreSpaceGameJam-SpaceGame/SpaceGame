@@ -12,6 +12,7 @@ const SPAWN_RATE_OF_RECHARGE : float = 80 # Chance of spawn will be SPAWN_RATE_O
 const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
+@onready var ambience : AudioStreamPlayer = $AmbiencePlayer
 
 const main_song_loop = preload("res://levels/main_level/inevitable_force_loop.wav")
 
@@ -28,12 +29,16 @@ func _ready() -> void:
 	$Player.remaining_gun_energy.connect($CanvasLayer/GunEnergyContainer/GunEnergy.set_progress)
 	
 	audio_stream.finished.connect(restart_music)
+	ambience.finished.connect(restart_ambience)
 	tile_map_layers.push_back($InitialTileMapLayer)
 	call_deferred("generate_new_tile_map_layer")
 	Global.current_score = 0
 	
 	if not Global.high_score:
 		Global.get_high_score()
+
+func restart_ambience() -> void:
+	ambience.play()
 
 func restart_music() -> void:
 	audio_stream.stream = main_song_loop

@@ -655,3 +655,4 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = 10.0
