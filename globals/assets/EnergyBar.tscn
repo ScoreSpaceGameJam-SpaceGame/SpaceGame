@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bapbbbar5gi8v"]
+
+[ext_resource type="Texture2D" uid="uid://dm2febvjm6kju" path="res://globals/assets/sprite_assets/empty_battery.png" id="1_k2qo8"]
+
+[sub_resource type="GDScript" id="GDScript_7awqs"]
+resource_name = "score"
+script/source = "extends Control
+
+func set_label(text: String) -> void:
+	if $ProgressBar.has_node(\"Label\"):
+		$ProgressBar/Label.text = text
+	
+func set_progress(val: float) -> void:
+	$ProgressBar.value = val
+
+func set_max(val: float) -> void:
+	$ProgressBar.max_value = val
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnmhm"]
+texture = ExtResource("1_k2qo8")
+expand_margin_left = 20.0
+expand_margin_top = 15.0
+expand_margin_right = 20.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uijg8"]
+bg_color = Color(0.227451, 0.376471, 0.290196, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Score" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_7awqs")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 50.0
+offset_top = 34.0
+offset_right = 256.0
+offset_bottom = 85.0
+theme_override_styles/background = SubResource("StyleBoxTexture_xnmhm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uijg8")
+max_value = 1.0
+value = 1.0
+show_percentage = false

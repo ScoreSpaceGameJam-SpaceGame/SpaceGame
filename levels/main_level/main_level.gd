@@ -8,7 +8,7 @@ const MIN_WIDTH_OF_PLATFORM = 3
 const MAX_WIDTH_OF_PLATFORM = 7
 const WIDTH_OF_TILESET = 5
 const HEIGHT_OF_TILESET = 1
-const SPAWN_RATE_OF_RECHARGE : float = 50.0 # Chance of spawn will be SPAWN_RATE_OF_RECHARGE / 100
+const SPAWN_RATE_OF_RECHARGE : float = 80 # Chance of spawn will be SPAWN_RATE_OF_RECHARGE / 100
 const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
@@ -22,7 +22,6 @@ func _ready() -> void:
 	# Set the stage
 	$CanvasLayer/Score.set_label("Score: 0")
 	$CanvasLayer/Score.set_progress(0)
-	$CanvasLayer/GunEnergyContainer/GunEnergy.set_label("Energy")
 	$CanvasLayer/GunEnergyContainer/GunEnergy.set_max(100)
 	$CanvasLayer/GunEnergyContainer/GunEnergy.set_progress(100)
 	
