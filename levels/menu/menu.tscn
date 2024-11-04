@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bauftp7yteame"]
+[gd_scene load_steps=8 format=3 uid="uid://bauftp7yteame"]
 
 [ext_resource type="Script" path="res://levels/menu/menu.gd" id="1_qhlr6"]
 [ext_resource type="AudioStream" uid="uid://sjxhlnmspqen" path="res://levels/menu/calm_wonder.wav" id="2_8em0r"]
 [ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="2_atalm"]
 [ext_resource type="StyleBox" uid="uid://oq7x8t7fp1jh" path="res://globals/assets/menu_button.tres" id="4_ie4v7"]
 [ext_resource type="AudioStream" uid="uid://0qm6h420kouu" path="res://globals/sfx/mouse_click.wav" id="5_bv1ly"]
+[ext_resource type="Texture2D" uid="uid://bsa2yjcsj7e8c" path="res://levels/main_level/sprite_assets/game_title.png" id="6_20lts"]
+[ext_resource type="Texture2D" uid="uid://dtov08omxyn7h" path="res://levels/main_level/sprite_assets/menu_background.png" id="7_0lji4"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -65,6 +67,34 @@ theme_override_styles/hover = ExtResource("4_ie4v7")
 theme_override_styles/pressed = ExtResource("4_ie4v7")
 theme_override_styles/normal = ExtResource("4_ie4v7")
 text = "Reset Score"
+
+[node name="Title" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -252.089
+offset_top = 14.9831
+offset_right = 2275.91
+offset_bottom = 974.983
+grow_horizontal = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_20lts")
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -99
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.429
+offset_top = -395.563
+offset_right = 543.571
+offset_bottom = 1004.44
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_0lji4")
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="VFlowContainer/Play" to="." method="_on_play_pressed"]
