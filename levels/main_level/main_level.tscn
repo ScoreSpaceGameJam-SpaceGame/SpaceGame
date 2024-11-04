@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bghx2oxnj2vx2"]
+[gd_scene load_steps=17 format=4 uid="uid://bghx2oxnj2vx2"]
 
 [ext_resource type="Script" path="res://levels/main_level/main_level.gd" id="1_dvjk0"]
 [ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="6_56bkb"]
 [ext_resource type="AudioStream" uid="uid://cm0keepmphtb8" path="res://globals/sfx/ambience_loop.wav" id="6_il0mg"]
 [ext_resource type="AudioStream" uid="uid://0qm6h420kouu" path="res://globals/sfx/mouse_click.wav" id="7_kmxjh"]
-[ext_resource type="PackedScene" uid="uid://pfi16yn0sc5t" path="res://globals/assets/energy_cell.tscn" id="8_mvqli"]
 [ext_resource type="StyleBox" uid="uid://oq7x8t7fp1jh" path="res://globals/assets/menu_button.tres" id="8_xtf8f"]
 [ext_resource type="PackedScene" uid="uid://bapbbbar5gi8v" path="res://globals/assets/EnergyBar.tscn" id="9_bmh47"]
 
@@ -218,13 +217,10 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
-theme_override_constants/margin_right = 300
+theme_override_constants/margin_right = 220
 
 [node name="GunEnergy" parent="CanvasLayer/GunEnergyContainer" instance=ExtResource("9_bmh47")]
 layout_mode = 2
-
-[node name="StaticBody2D" parent="CanvasLayer/GunEnergyContainer" instance=ExtResource("8_mvqli")]
-position = Vector2(-93.5495, 248.501)
 
 [connection signal="body_entered" from="Boundaries/PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="Boundaries/TileMapDeath" to="." method="_on_tile_map_death_body_entered"]

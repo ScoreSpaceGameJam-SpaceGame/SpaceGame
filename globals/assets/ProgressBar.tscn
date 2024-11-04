@@ -18,10 +18,10 @@ func set_max(val: float) -> void:
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnmhm"]
 texture = ExtResource("1_emnxj")
-expand_margin_left = 47.0
-expand_margin_top = 18.0
-expand_margin_right = 37.0
-expand_margin_bottom = 22.0
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_411i7"]
 bg_color = Color(0.227451, 0.376471, 0.290196, 1)
@@ -29,6 +29,8 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [node name="Score" type="Control"]
 layout_mode = 3
@@ -38,20 +40,22 @@ offset_bottom = 40.0
 script = SubResource("GDScript_7awqs")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 50.4538
-offset_top = 33.6359
-offset_right = 247.454
-offset_bottom = 60.6359
+offset_left = 50.0
+offset_top = 34.0
+offset_right = 203.0
+offset_bottom = 52.0
 theme_override_styles/background = SubResource("StyleBoxTexture_xnmhm")
 theme_override_styles/fill = SubResource("StyleBoxFlat_411i7")
 max_value = 1.0
+value = 1.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="ProgressBar"]
 layout_mode = 0
-offset_left = 9.36359
-offset_top = -0.840881
-offset_right = 110.364
-offset_bottom = 22.1591
+offset_left = 13.0179
+offset_top = -4.32564
+offset_right = 114.018
+offset_bottom = 18.6744
 text = "Score: 0"
