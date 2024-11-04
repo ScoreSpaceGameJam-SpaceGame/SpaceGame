@@ -91,6 +91,12 @@ func handle_powering_state():
 		else:
 			$GunMountPoint.global_rotation = firing_vector.angle()
 		
+		if gun_energy - global_position.distance_to($Telenade.global_position) / 50 < 0:
+			player_state = Enums.player_actions.AIMING
+			$SFXPlayer.stream = failed_teleport_sfx
+			$SFXPlayer.play()
+			return
+		
 		is_shooting = true
 		player_state = Enums.player_actions.FIRING
 		$Telenade.visible = true
@@ -104,12 +110,6 @@ func handle_firing_state():
 		is_shooting = false
 		
 		# Handle the gun not having enough energy by returning telenade and playing sfx
-		if gun_energy - global_position.distance_to($Telenade.global_position) / 50 < 0:
-			$Telenade.visible=false
-			player_state = Enums.player_actions.AIMING
-			$SFXPlayer.stream = failed_teleport_sfx
-			$SFXPlayer.play()
-			return
 		
 		# Handle the gun having enough energy and teleport player
 		gun_energy -= global_position.distance_to($Telenade.global_position) / 50
@@ -117,3 +117,7 @@ func handle_firing_state():
 		global_position = $Telenade.global_position
 		player_state = Enums.player_actions.AIMING
 		$Telenade.visible=false
+
+func recharge_gun(amount: float) -> void:
+	gun_energy = min(gun_energy + amount, 100)
+	remaining_gun_energy.emit(gun_energy)

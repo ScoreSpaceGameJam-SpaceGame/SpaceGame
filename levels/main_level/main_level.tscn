@@ -18,7 +18,7 @@ size = Vector2(21.4294, 2082.29)
 size = Vector2(1151.63, 20.362)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g51pk"]
-size = Vector2(1150.98, 28.4935)
+size = Vector2(2041.19, 40.8262)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyoiy"]
 size = Vector2(1144.02, 34.1295)
@@ -57,7 +57,7 @@ shape = SubResource("RectangleShape2D_ijkol")
 [node name="PlayerDeath" type="Area2D" parent="Boundaries"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/PlayerDeath"]
-position = Vector2(575.726, 662.595)
+position = Vector2(610.373, 756.166)
 shape = SubResource("RectangleShape2D_g51pk")
 
 [node name="TileMapDeath" type="Area2D" parent="Boundaries"]

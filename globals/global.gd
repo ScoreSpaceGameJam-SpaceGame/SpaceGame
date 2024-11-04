@@ -1,5 +1,7 @@
 extends Node
 
+const SCROLL_SPEED: float = 1.5
+
 var current_score: int
 var high_score: int
 
