@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bauftp7yteame"]
+[gd_scene load_steps=6 format=3 uid="uid://bauftp7yteame"]
 
 [ext_resource type="Script" path="res://levels/menu/menu.gd" id="1_qhlr6"]
 [ext_resource type="AudioStream" uid="uid://sjxhlnmspqen" path="res://levels/menu/calm_wonder.wav" id="2_8em0r"]
 [ext_resource type="PackedScene" uid="uid://dpmiyenwvroof" path="res://globals/assets/ProgressBar.tscn" id="2_atalm"]
 [ext_resource type="StyleBox" uid="uid://oq7x8t7fp1jh" path="res://globals/assets/menu_button.tres" id="4_ie4v7"]
+[ext_resource type="AudioStream" uid="uid://0qm6h420kouu" path="res://globals/sfx/mouse_click.wav" id="5_bv1ly"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -19,6 +20,9 @@ script = ExtResource("1_qhlr6")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_8em0r")
 autoplay = true
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_bv1ly")
 
 [node name="VFlowContainer" type="VFlowContainer" parent="."]
 custom_minimum_size = Vector2(0, 300)

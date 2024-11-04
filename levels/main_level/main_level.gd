@@ -13,6 +13,7 @@ const TILE_SET_TO_USE = "res://levels/main_level/map_tileset.tres"
 
 @onready var audio_stream : AudioStreamPlayer = $AudioStreamPlayer
 @onready var ambience : AudioStreamPlayer = $AmbiencePlayer
+@onready var button_sfx : AudioStreamPlayer = $ButtonClick
 
 const main_song_loop = preload("res://levels/main_level/inevitable_force_loop.wav")
 
@@ -136,13 +137,19 @@ func _on_player_death_body_entered(body: Node2D) -> void:
 
 
 func _on_exit_pressed() -> void:
+	button_sfx.play()
+	await button_sfx.finished
 	get_tree().quit()
 
 func _on_main_menu_pressed() -> void:
+	button_sfx.play()
+	await button_sfx.finished
 	call_deferred("load_main_menu")
 
 func load_main_menu():
 	get_tree().change_scene_to_file("res://levels/menu/menu.tscn")
 
 func _on_play_again_pressed() -> void:
+	button_sfx.play()
+	await button_sfx.finished
 	get_tree().reload_current_scene()

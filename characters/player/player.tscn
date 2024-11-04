@@ -655,6 +655,6 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="LocomotionSFXPlayer" type="AudioStreamPlayer2D" parent="."]
-volume_db = 10.0
+volume_db = 20.0
 
 [node name="GunSFXPlayer" type="AudioStreamPlayer2D" parent="."]
