@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpmiyenwvroof"]
+
+[ext_resource type="Texture2D" uid="uid://dxic68s0fci4r" path="res://levels/sprite_assets/score_background.png" id="1_emnxj"]
+
+[sub_resource type="GDScript" id="GDScript_7awqs"]
+resource_name = "score"
+script/source = "extends Control
+
+func set_label(text: String) -> void:
+	$ProgressBar/Label.text = text
+	
+func set_progress(val: float) -> void:
+	$ProgressBar.value = val
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnmhm"]
+texture = ExtResource("1_emnxj")
+expand_margin_left = 47.0
+expand_margin_top = 18.0
+expand_margin_right = 37.0
+expand_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_411i7"]
+bg_color = Color(0.227451, 0.376471, 0.290196, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Score" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_7awqs")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 50.4538
+offset_top = 33.6359
+offset_right = 247.454
+offset_bottom = 60.6359
+theme_override_styles/background = SubResource("StyleBoxTexture_xnmhm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_411i7")
+max_value = 1.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="ProgressBar"]
+layout_mode = 0
+offset_left = 9.36359
+offset_top = -0.840881
+offset_right = 110.364
+offset_bottom = 22.1591
+text = "Score: 0"

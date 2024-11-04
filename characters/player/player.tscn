@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://domnmo2ft2frd"]
+[gd_scene load_steps=43 format=3 uid="uid://domnmo2ft2frd"]
 
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_k5q7q"]
+[ext_resource type="Texture2D" uid="uid://jvc258ad5pth" path="res://characters/player/sprite_assets/player_sheet.png" id="2_ggpg0"]
 [ext_resource type="PackedScene" uid="uid://32kddvgjo03b" path="res://characters/player/aim_indicator.tscn" id="2_nkr18"]
 [ext_resource type="PackedScene" uid="uid://xakoy6oyk2hs" path="res://characters/player/telenade.tscn" id="3_741t6"]
-[ext_resource type="Texture2D" uid="uid://c8dhx0r8nlp2v" path="res://characters/player/player.png" id="4_vptko"]
+[ext_resource type="Texture2D" uid="uid://draeu53ddc1s7" path="res://characters/player/sprite_assets/rpg_sheet.png" id="3_h3uqd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vym13"]
 radius = 0.330596
@@ -11,13 +12,612 @@ height = 1.04906
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nnexd"]
 
+[sub_resource type="Animation" id="Animation_dej4u"]
+resource_name = "Idle"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 3, 6, 9, 12, 15, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunMountPoint/GunModel:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GunMountPoint/GunModel:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.401426]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GunMountPoint/GunModel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(20, 15), Vector2(20, 18), Vector2(20, 15)]
+}
+
+[sub_resource type="Animation" id="Animation_k2h54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunMountPoint/GunModel:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GunMountPoint/GunModel:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.401426]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GunMountPoint/GunModel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, 10)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GunMountPoint/GunModel:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerModel:flip_h")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_q4pws"]
+resource_name = "Shoot-Left"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 5, 8, 11, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.05, 0.07, 0.1, 0.14, 0.17, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunMountPoint/GunModel:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GunMountPoint/GunModel:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GunMountPoint/GunModel:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GunMountPoint/GunModel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-30, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerModel:flip_h")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ne5jp"]
+resource_name = "Shoot-Right"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 5, 8, 11, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.05, 0.07, 0.1, 0.14, 0.17, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunMountPoint/GunModel:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GunMountPoint/GunModel:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GunMountPoint/GunModel:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GunMountPoint/GunModel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(30, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerModel:flip_h")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ov46y"]
+resource_name = "Walk-Left"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 10, 13, 16, 19]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunMountPoint/GunModel:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GunMountPoint/GunModel:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GunMountPoint/GunModel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-30, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_80h1v"]
+resource_name = "Walk-Right"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 4, 7, 10, 13, 16, 19]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GunMountPoint/GunModel:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunMountPoint/GunModel:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GunMountPoint/GunModel:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GunMountPoint/GunModel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(30, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0c6m"]
+_data = {
+"Idle": SubResource("Animation_dej4u"),
+"RESET": SubResource("Animation_k2h54"),
+"Shoot-Left": SubResource("Animation_q4pws"),
+"Shoot-Right": SubResource("Animation_ne5jp"),
+"Walk-Left": SubResource("Animation_ov46y"),
+"Walk-Right": SubResource("Animation_80h1v")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3coq6"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0sqlx"]
+animation = &"Shoot-Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_88si2"]
+animation = &"Shoot-Right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_20ti0"]
+advance_mode = 2
+advance_expression = "aim_direction == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_do48e"]
+advance_mode = 2
+advance_expression = "aim_direction ==1 "
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wy0ty"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_th7pp"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_msaro"]
+states/Shoot-Left/node = SubResource("AnimationNodeAnimation_0sqlx")
+states/Shoot-Left/position = Vector2(515, 83)
+states/Shoot-Right/node = SubResource("AnimationNodeAnimation_88si2")
+states/Shoot-Right/position = Vector2(515, 174)
+transitions = ["Start", "Shoot-Left", SubResource("AnimationNodeStateMachineTransition_20ti0"), "Start", "Shoot-Right", SubResource("AnimationNodeStateMachineTransition_do48e"), "Shoot-Left", "End", SubResource("AnimationNodeStateMachineTransition_wy0ty"), "Shoot-Right", "End", SubResource("AnimationNodeStateMachineTransition_th7pp")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_obxji"]
+animation = &"Walk-Left"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uleej"]
+animation = &"Walk-Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gg3os"]
+animation = &"Walk-Right"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kcwtb"]
+animation = &"Walk-Right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_71s6v"]
+advance_mode = 2
+advance_expression = "walk_direction == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fjphh"]
+advance_mode = 2
+advance_expression = "walk_direction == 0 and aim_direction == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5lmln"]
+advance_mode = 2
+advance_expression = "walk_direction == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_er3t1"]
+advance_mode = 2
+advance_expression = "walk_direction == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_utww3"]
+advance_mode = 2
+advance_expression = "walk_direction == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y3ji5"]
+advance_mode = 2
+advance_expression = "walk_direction == 1 and aim_direction == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kqfn1"]
+advance_mode = 2
+advance_expression = "!(walk_direction == 1 and aim_direction == 0)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0l550"]
+advance_mode = 2
+advance_expression = "!(walk_direction == 0 and aim_direction == 1)"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dvwj8"]
+states/Walk-Left/node = SubResource("AnimationNodeAnimation_uleej")
+states/Walk-Left/position = Vector2(430, 92)
+"states/Walk-Left Revese/node" = SubResource("AnimationNodeAnimation_obxji")
+"states/Walk-Left Revese/position" = Vector2(649, 178)
+states/Walk-Right/node = SubResource("AnimationNodeAnimation_kcwtb")
+states/Walk-Right/position = Vector2(430, 178)
+"states/Walk-Right Revese/node" = SubResource("AnimationNodeAnimation_gg3os")
+"states/Walk-Right Revese/position" = Vector2(649, 92)
+transitions = ["Start", "Walk-Left", SubResource("AnimationNodeStateMachineTransition_71s6v"), "Walk-Left", "Walk-Right Revese", SubResource("AnimationNodeStateMachineTransition_fjphh"), "Start", "Walk-Right", SubResource("AnimationNodeStateMachineTransition_5lmln"), "Walk-Left", "Walk-Right", SubResource("AnimationNodeStateMachineTransition_er3t1"), "Walk-Right", "Walk-Left", SubResource("AnimationNodeStateMachineTransition_utww3"), "Walk-Right", "Walk-Left Revese", SubResource("AnimationNodeStateMachineTransition_y3ji5"), "Walk-Left Revese", "Walk-Right", SubResource("AnimationNodeStateMachineTransition_kqfn1"), "Walk-Right Revese", "Walk-Left", SubResource("AnimationNodeStateMachineTransition_0l550")]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_btawm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uwlsn"]
+advance_mode = 2
+advance_expression = "!velocity.is_zero_approx()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x8l2u"]
+advance_mode = 2
+advance_expression = "velocity.is_zero_approx()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ax7b2"]
+advance_mode = 2
+advance_expression = "is_shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_73ro5"]
+advance_mode = 2
+advance_expression = "is_shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w8eg5"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "!is_shooting"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xtmv7"]
+states/Idle/node = SubResource("AnimationNodeAnimation_3coq6")
+states/Idle/position = Vector2(382, 100)
+states/Shooting/node = SubResource("AnimationNodeStateMachine_msaro")
+states/Shooting/position = Vector2(382, 248)
+states/Start/position = Vector2(199, 100)
+states/Walking/node = SubResource("AnimationNodeStateMachine_dvwj8")
+states/Walking/position = Vector2(554, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_btawm"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_uwlsn"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_x8l2u"), "Idle", "Shooting", SubResource("AnimationNodeStateMachineTransition_ax7b2"), "Walking", "Shooting", SubResource("AnimationNodeStateMachineTransition_73ro5"), "Shooting", "Idle", SubResource("AnimationNodeStateMachineTransition_w8eg5")]
+graph_offset = Vector2(-103, 25)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_k5q7q")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("4_vptko")
+[node name="PlayerModel" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_ggpg0")
+hframes = 3
+vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -0.05)
 scale = Vector2(20, 20)
 shape = SubResource("CapsuleShape2D_vym13")
@@ -27,7 +627,29 @@ shape = SubResource("CapsuleShape2D_vym13")
 [node name="AimIndicator" parent="AimIndicatorMountPoint" instance=ExtResource("2_nkr18")]
 position = Vector2(0, -55.08)
 
+[node name="GunMountPoint" type="Node2D" parent="."]
+
+[node name="GunModel" type="Sprite2D" parent="GunMountPoint"]
+z_index = -1
+texture_filter = 1
+position = Vector2(13, 10)
+rotation = 0.401426
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_h3uqd")
+flip_h = true
+vframes = 7
+
 [node name="Telenade" parent="." instance=ExtResource("3_741t6")]
 visible = false
 physics_material_override = SubResource("PhysicsMaterial_nnexd")
 gravity_scale = 0.08
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0c6m")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_xtmv7")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")

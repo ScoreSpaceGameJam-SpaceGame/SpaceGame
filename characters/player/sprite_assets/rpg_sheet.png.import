@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlryeq2iagjr6"
-path="res://.godot/imported/placerholderblock.png-f196e90e52f364da96597103ccf3f98a.ctex"
+uid="uid://draeu53ddc1s7"
+path="res://.godot/imported/rpg_sheet.png-5fe4f905520b9a469edc288795dc1657.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/main_level/placerholderblock.png"
-dest_files=["res://.godot/imported/placerholderblock.png-f196e90e52f364da96597103ccf3f98a.ctex"]
+source_file="res://characters/player/sprite_assets/rpg_sheet.png"
+dest_files=["res://.godot/imported/rpg_sheet.png-5fe4f905520b9a469edc288795dc1657.ctex"]
 
 [params]
 
