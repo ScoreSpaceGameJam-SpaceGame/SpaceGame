@@ -78,14 +78,20 @@ func handle_powering_state():
 	velocity = Vector2.ZERO
 	var x_power : float = get_global_mouse_position().distance_to(original_mouse_position_when_firing)
 	$Telenade.translate(global_position - $Telenade.global_position)
-	firing_power = clamp(log(x_power) * x_power / 2, 0, 100) # TODO use this
+	firing_power = clamp(log(x_power) * x_power / 2, 0, 500) # TODO use this
 	
 	if Input.is_action_just_released("FiringAction"):
+		if aim_direction == Enums.directions.LEFT:
+			$GunMountPoint.global_rotation = firing_vector.angle() + PI
+		else:
+			$GunMountPoint.global_rotation = firing_vector.angle()
+		
 		is_shooting = true
 		player_state = Enums.player_actions.FIRING
 		$Telenade.visible = true
-		$Telenade.global_rotation = firing_vector.angle()
-		$Telenade.apply_central_impulse(firing_vector.normalized() * 500 * FIRE_POWER_MULTIPLYER)
+		$Telenade.linear_velocity = Vector2.ZERO
+		$Telenade.angular_velocity = 0
+		$Telenade.apply_central_impulse(firing_vector * 500 * FIRE_POWER_MULTIPLYER)
 
 func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):

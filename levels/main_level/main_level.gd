@@ -1,6 +1,6 @@
 extends Node2D
 
-const SCROLL_SPEED: float = 0
+const SCROLL_SPEED: float = 1.5
 const TILE_MAP_LAYER_WIDTH = 90
 const TILE_MAP_LAYER_HEIGHT = 50
 const MIN_NUMBER_OF_PLATFORMS_PER_LAYER = 20

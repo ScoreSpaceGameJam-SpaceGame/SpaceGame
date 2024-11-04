@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://clmieam1vem8h"]
+
+[ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="1_30t1u"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_gu03v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ms8e2"]
+size = Vector2(1197, 22)
+
+[node name="RpgTestingGrounds" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+position = Vector2(578.5, 344.5)
+scale = Vector2(1196, 22)
+mesh = SubResource("QuadMesh_gu03v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(577.5, 345)
+shape = SubResource("RectangleShape2D_ms8e2")
+
+[node name="Player" parent="." instance=ExtResource("1_30t1u")]
+position = Vector2(462, 308)
