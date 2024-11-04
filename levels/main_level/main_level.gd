@@ -72,8 +72,8 @@ func generate_new_tile_map_layer() -> void:
 
 func _on_update_score() -> void:
 	Global.current_score += 1
-	$CanvasLayer/Control/ProgressBar/Score.text = "Score: %s" % str(Global.current_score)
-	$CanvasLayer/Control/ProgressBar.value = clamp(float(Global.current_score) / float(Global.high_score), 0, 1)
+	$CanvasLayer/Score.set_label("Score: %s" % str(Global.current_score))
+	$CanvasLayer/Score.set_progress(clamp(float(Global.current_score) / float(Global.high_score), 0, 1))
 	
 	$ScoreTimer.start()
 
