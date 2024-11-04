@@ -16,12 +16,11 @@ var aim_direction : Enums.directions = Enums.directions.LEFT
 var gun_energy: float = 100
 var is_falling : bool = false
 
-var failed_teleport_sfx = preload("res://characters/player/failed_teleport.wav")
-
 signal remaining_gun_energy
 
 @onready var aim_indicator_mount_point: Node2D = $AimIndicatorMountPoint
-@onready var feet_sfx_player: AudioStreamPlayer2D = $SFXPlayer
+@onready var locomotion_sfx_player: AudioStreamPlayer2D = $LocomotionSFXPlayer
+@onready var gun_sfx_player: AudioStreamPlayer2D = $GunSFXPlayer
 
 func _physics_process(delta: float) -> void:
 	# Tracking the directions for our animation tree
@@ -67,7 +66,6 @@ func handle_aiming_state():
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	
 	# Rotate the aim indicator to match the firing angle
 	aim_indicator_mount_point.global_rotation = firing_vector.angle() + .5 * PI
 	if velocity.is_zero_approx():
@@ -97,8 +95,8 @@ func handle_powering_state():
 		# Handle the gun not having enough energy by returning telenade and playing sfx
 		if gun_energy - global_position.distance_to($Telenade.global_position) / 50 < 0:
 			player_state = Enums.player_actions.AIMING
-			$SFXPlayer.stream = failed_teleport_sfx
-			$SFXPlayer.play()
+			gun_sfx_player.stream = Global.GUN_SOUNDS[3]
+			gun_sfx_player.play()
 			return
 		
 		is_shooting = true
@@ -107,6 +105,15 @@ func handle_powering_state():
 		$Telenade.linear_velocity = Vector2.ZERO
 		$Telenade.angular_velocity = 0
 		$Telenade.apply_central_impulse(firing_vector * 500 * FIRE_POWER_MULTIPLYER)
+		if gun_energy >= 70.0:
+			gun_sfx_player.stream = Global.GUN_SOUNDS[0]
+		elif gun_energy >= 30.0:
+			gun_sfx_player.stream = Global.GUN_SOUNDS[1]
+		else:
+			gun_sfx_player.stream = Global.GUN_SOUNDS[2]
+			
+		gun_sfx_player.play()
+		
 
 func handle_firing_state():
 	if Input.is_action_pressed("Teleport"):
@@ -119,6 +126,8 @@ func handle_firing_state():
 		
 		# Complete the teleport and resize
 		global_position = $Telenade.global_position
+		locomotion_sfx_player.stream = Global.TELEPORT_SOUNDS.pick_random()
+		locomotion_sfx_player.play()
 		
 		# Reset player state
 		player_state = Enums.player_actions.AIMING
@@ -127,13 +136,16 @@ func handle_firing_state():
 func recharge_gun(amount: float) -> void:
 	gun_energy = min(gun_energy + amount, 100)
 	remaining_gun_energy.emit(gun_energy)
+	
+	gun_sfx_player.stream = Global.GUN_SOUNDS[4]
+	gun_sfx_player.play()
 
 func play_sfx() -> void:
 	if is_falling and is_on_floor():
-		feet_sfx_player.stream = Global.land_sounds.pick_random()
-		feet_sfx_player.play()
+		locomotion_sfx_player.stream = Global.LAND_SOUNDS.pick_random()
+		locomotion_sfx_player.play()
 		is_falling = false
-	if not velocity.is_zero_approx() and not is_falling and not feet_sfx_player.playing and player_state != Enums.player_actions.FIRING:
-		feet_sfx_player.stream = Global.walk_sounds.pick_random()
-		feet_sfx_player.play()
+	if not velocity.is_zero_approx() and not is_falling and not locomotion_sfx_player.playing and player_state != Enums.player_actions.FIRING:
+		locomotion_sfx_player.stream = Global.WALK_SOUNDS.pick_random()
+		locomotion_sfx_player.play()
 		

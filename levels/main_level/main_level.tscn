@@ -82,6 +82,7 @@ anchor_mode = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_gwp46")
+autoplay = true
 
 [node name="SongEndingPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_vt0u2")
