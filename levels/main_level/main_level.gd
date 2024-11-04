@@ -74,6 +74,13 @@ func _on_update_score() -> void:
 	
 	$ScoreTimer.start()
 
+func _on_spawn_astroid() -> void:
+	var new_astroid = load("res://levels/main_level/Astroid.tscn").instantiate()
+	$CanvasLayer/ParallaxBackground.add_child(new_astroid)
+	
+	$AstroidSpawnTimer.wait_time = RandomNumberGenerator.new().randf_range(0, 2)
+	$AstroidSpawnTimer.start()
+
 
 func _on_player_death_body_entered(body: Node2D) -> void:
 	if "Player" not in body.get_groups():

@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://domnmo2ft2frd" path="res://characters/player/player.tscn" id="2_cjvwa"]
 [ext_resource type="TileSet" uid="uid://qprgehqdwpm2" path="res://levels/main_level/map_tileset.tres" id="3_b03ey"]
 [ext_resource type="AudioStream" uid="uid://dtji5ehw3sg5s" path="res://levels/main_level/Inevitable Force.wav" id="3_yrvgj"]
-[ext_resource type="Texture2D" uid="uid://boud6tci7v2sb" path="res://levels/main_level/placeholder-background.png" id="4_3mcrr"]
 [ext_resource type="Texture2D" uid="uid://dxic68s0fci4r" path="res://characters/player/sprite_assets/score_background.png" id="5_xensf"]
+[ext_resource type="PackedScene" uid="uid://btabuqbe7l5ad" path="res://levels/main_level/Astroid.tscn" id="6_5md4j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7nil"]
 size = Vector2(7.42501, 2099.21)
@@ -39,6 +39,44 @@ corner_radius_bottom_left = 6
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_dvjk0")
 
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="RightBounds" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightBounds"]
+position = Vector2(1155.95, -401.48)
+shape = SubResource("RectangleShape2D_n7nil")
+
+[node name="LeftBounds" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftBounds"]
+position = Vector2(-10.9034, -393.292)
+shape = SubResource("RectangleShape2D_3auv8")
+
+[node name="TopBounds" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopBounds"]
+position = Vector2(575.94, -11.4731)
+shape = SubResource("RectangleShape2D_ijkol")
+
+[node name="PlayerDeath" type="Area2D" parent="Boundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/PlayerDeath"]
+position = Vector2(575.726, 662.595)
+shape = SubResource("RectangleShape2D_g51pk")
+
+[node name="TileMapDeath" type="Area2D" parent="Boundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TileMapDeath"]
+position = Vector2(577.391, 1400)
+shape = SubResource("RectangleShape2D_pyoiy")
+
 [node name="Player" parent="." instance=ExtResource("2_cjvwa")]
 position = Vector2(654.098, 258.616)
 
@@ -55,43 +93,10 @@ anchor_mode = 0
 stream = ExtResource("3_yrvgj")
 autoplay = true
 
-[node name="RightBounds" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBounds"]
-position = Vector2(1155.95, -401.48)
-shape = SubResource("RectangleShape2D_n7nil")
-
-[node name="LeftBounds" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBounds"]
-position = Vector2(-10.9034, -393.292)
-shape = SubResource("RectangleShape2D_3auv8")
-
-[node name="TopBounds" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBounds"]
-position = Vector2(575.94, -11.4731)
-shape = SubResource("RectangleShape2D_ijkol")
-
-[node name="PlayerDeath" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeath"]
-position = Vector2(575.726, 662.595)
-shape = SubResource("RectangleShape2D_g51pk")
-
-[node name="TileMapDeath" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMapDeath"]
-position = Vector2(577.391, 1400)
-shape = SubResource("RectangleShape2D_pyoiy")
-
 [node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AstroidSpawnTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -121,14 +126,37 @@ offset_right = 110.364
 offset_bottom = 22.1591
 text = "Score: 0000"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -99
-position = Vector2(576.535, 324.339)
-rotation = 1.5708
-scale = Vector2(2.89109, 4.49503)
-texture = ExtResource("4_3mcrr")
-metadata/_edit_lock_ = true
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+scroll_offset = Vector2(0, 100)
+scroll_ignore_camera_zoom = true
 
-[connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
-[connection signal="body_entered" from="TileMapDeath" to="." method="_on_tile_map_death_body_entered"]
+[node name="Astroid" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+
+[node name="Astroid2" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 100)
+
+[node name="Astroid3" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 600)
+
+[node name="Astroid4" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 460)
+
+[node name="Astroid5" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+motion_offset = Vector2(0, 350)
+
+[node name="Astroid6" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 300)
+
+[node name="Astroid7" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 250)
+
+[node name="Astroid8" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+motion_offset = Vector2(0, 250)
+
+[node name="Astroid9" parent="CanvasLayer/ParallaxBackground" instance=ExtResource("6_5md4j")]
+position = Vector2(0, 475)
+
+[connection signal="body_entered" from="Boundaries/PlayerDeath" to="." method="_on_player_death_body_entered"]
+[connection signal="body_entered" from="Boundaries/TileMapDeath" to="." method="_on_tile_map_death_body_entered"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_update_score"]
+[connection signal="timeout" from="AstroidSpawnTimer" to="." method="_on_spawn_astroid"]
